@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RiCloseLine as RxCross2, RiMenuLine as RxHamburgerMenu } from 'react-icons/ri';
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 import { FiBookmark } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'react-bootstrap';
@@ -20,7 +20,7 @@ export default function MenuAppBar({ isToken }) {
     const [query, setQuery] = useState("")
     const [resultsData, setResultsData] = useState([])
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const navigate = useNavigate()
 
     const handleSearchOnChange = (e) => {
         if (e.key === "Enter") {
@@ -34,7 +34,9 @@ export default function MenuAppBar({ isToken }) {
     const handleLogout = async () => {
         dispatch(logoutUser())
     }
-
+    useEffect(() => {
+        onClose()
+    }, [navigate])
 
     useEffect(() => {
         searchMoviesOrSeries(query)

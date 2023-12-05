@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Martel+Sans:wght@600&family=Montserrat:wght@700;800&family=Noto+Sans:wght@500&family=Nunito:wght@600&family=Open+Sans:wght@500&family=Poppins:wght@400;700&family=Roboto+Condensed&family=Roboto+Slab:wght@500&family=Roboto:wght@500&family=Teko:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Belanosima&family=Dhurjati&family=Lato:ital@1&family=Martel+Sans:wght@600&family=Montserrat:wght@700;800&family=Noto+Sans:wght@500&family=Nova+Mono&family=Nunito:wght@600&family=Open+Sans:wght@500&family=Poppins:wght@400;700&family=Roboto+Condensed&family=Roboto+Slab:wght@500&family=Roboto:wght@500&family=Teko:wght@500&display=swap');
 
 * {
   margin: 0;
@@ -65,6 +66,15 @@ body {
   margin: 0;
   padding: 0;
   z-index: 10;
+  font-family: 'Noto Sans';
+}
+
+.mobile-links{
+  font-family: 'Noto Sans';
+}
+.nav-links li a {
+  font-size: 1.1rem;
+  letter-spacing: 0.0.7rem;
 }
 
 .mobile-links {
@@ -144,6 +154,20 @@ body {
   width: auto;
 }
 
+.movie-heading{
+  font-family: 'Lato' !important;
+  font-size: 1.9rem;
+}
+
+.series-heading{
+  font-family: 'Lato' !important;
+  font-size: 1.9rem;
+}
+
+.tr-h{
+  font-family: 'Lato' !important;
+  font-size: 2rem ;
+}
 
 .bars {
   color: white !important;
@@ -575,7 +599,7 @@ iframe {
   top: 4rem;
   left: 0px;
   width: 100%;
-  height: 100%;
+  height: 123%;
   filter: brightness(40%);
   z-index: -1;
 }

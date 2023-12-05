@@ -29,13 +29,13 @@ const SeriesCardSliderComponent = ({ id, seriesId }) => {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToScroll: 4,
         centerMode: false,
         // slidesToShow: data.length >= 6 ? 4 : data.length,
-        slidesToScroll: 3,
+        slidesToScroll: 2,
         centerPadding: "10px",
         variableWidth: true,
         slidesToShow: 1,
+        arrows: window.innerWidth <= 640 ? false : true,
     };
 
     return (

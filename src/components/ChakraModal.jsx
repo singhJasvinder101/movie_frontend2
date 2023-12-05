@@ -8,7 +8,7 @@ const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, on
         <div>
             <Link onClick={onOpen}>{children}</Link>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader className='text-dark'>Search Movies/Series</ModalHeader>

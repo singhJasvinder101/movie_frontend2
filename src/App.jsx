@@ -21,6 +21,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isloggedin, setIsloggedin] = useState(false)
+  const [isToken, setIsToken] = useState(false)
 
   const disableInspect = () => {
     document.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -38,7 +39,7 @@ function App() {
   };
 
   useEffect(() => {
-    disableInspect();
+    // disableInspect();
   }, [])
 
   useEffect(() => {
@@ -62,11 +63,11 @@ function App() {
           <Router>
             <ScrollToTop />
             <ChakraProvider>
-              <Navbar />
+                <Navbar isToken={isToken}/>
             </ChakraProvider>
             <Routes>
               <Route exact path='/' element={isloggedin ? <Home /> : <MainPage />} />
-              <Route element={<ProtectedRouteComponent isAuthenticated={true} admin={false} />}>
+                <Route element={<ProtectedRouteComponent setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
                 <Route path='/home' element={<Home />} />
                 <Route path='/hollywood' element={<Hollywood />} />
                 <Route path='/bollywood' element={<BollywoodMovies />} />

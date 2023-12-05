@@ -15,16 +15,12 @@ import ChakraModal from './ChakraModal';
 import SideDrawerComponent from './SideDrawerComponent';
 const apiUrl = import.meta.env.VITE_API_URI;
 
-export default function MenuAppBar() {
+export default function MenuAppBar({ isToken }) {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [query, setQuery] = useState("")
     const [resultsData, setResultsData] = useState([])
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-
-    const toggleMobileMenu = () => {
-        setShowMobileMenu(!showMobileMenu);
-    };
 
     const handleSearchOnChange = (e) => {
         if (e.key === "Enter") {
@@ -97,7 +93,7 @@ export default function MenuAppBar() {
                                 </span>
                             </Link>
                         </li>
-                    ) : userInfo.name && !userInfo.isAdmin ? (<button onClick={handleLogout} className='btn btn-danger mx-1'>Logout</button>)
+                    ) : isToken && !userInfo.isAdmin ? (<button onClick={handleLogout} className='btn btn-danger mx-1'>Logout</button>)
                         : (
                             <>
                                 <Link to="/login" className='login btn btn-danger mx-1'>Login</Link>

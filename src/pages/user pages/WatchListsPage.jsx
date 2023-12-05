@@ -20,7 +20,7 @@ const WatchListsPage = () => {
             }
         };
         fetchData()
-    }, [allWatchLists])
+    }, [])
 
     return (
         <div>

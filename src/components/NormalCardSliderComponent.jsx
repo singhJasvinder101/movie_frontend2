@@ -12,7 +12,7 @@ const NormalCardSliderComponent = ({ season, imdbId }) => {
         dots: false,
         speed: 500,
         centerMode: false,
-        slidesToScroll: 3,
+        slidesToScroll: 2,
         centerPadding: "10px",
         variableWidth: true,
         slidesToShow: 1,

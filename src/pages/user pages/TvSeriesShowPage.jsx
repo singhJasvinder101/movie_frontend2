@@ -24,6 +24,8 @@ const TvSeriesShowPage = () => {
   const [seriesIsFound, setSeriesIsFound] = useState(false)
   const [server, setServer] = useState(1)
 
+  console.log(imdbId)
+
   useEffect(() => {
     if (currentEpisodeData.title) {
       document.title = `${currentEpisodeData.title} | ${currentEpisodeData.genres}`;
@@ -54,7 +56,7 @@ const TvSeriesShowPage = () => {
       gettingCurrentEpisodeTitleOverview(seriesId, season_number, episode_number)
         .then((data) => {
           if (data) {
-            // console.log(data)
+            console.log(data)
             setCurrentEpisodeData((prevData) => ({
               ...prevData,
               title: data.name,

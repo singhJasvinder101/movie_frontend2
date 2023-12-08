@@ -69,9 +69,10 @@ body {
   font-family: 'Noto Sans';
 }
 
-.mobile-links{
+.mobile-links {
   font-family: 'Noto Sans';
 }
+
 .nav-links li a {
   font-size: 1.1rem;
   letter-spacing: 0.07rem;
@@ -154,19 +155,19 @@ body {
   width: auto;
 }
 
-.movie-heading{
+.movie-heading {
   font-family: 'Lato' !important;
   font-size: 1.9rem;
 }
 
-.series-heading{
+.series-heading {
   font-family: 'Lato' !important;
   font-size: 1.9rem;
 }
 
-.tr-h{
+.tr-h {
   font-family: 'Lato' !important;
-  font-size: 2rem ;
+  font-size: 2rem;
 }
 
 .bars {
@@ -497,6 +498,22 @@ iframe {
   margin-bottom: 0.8rem !important;
 }
 
+.results {
+  height: 12rem;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.281);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .sample-results li {
   list-style: none !important;
 }
@@ -571,6 +588,14 @@ iframe {
     width: 142px !important;
     height: 15rem !important;
     margin: 0.4rem !important;
+  }
+  .card-skeleton {
+    width: 142px !important;
+    height: 15rem !important;
+  }
+
+  .kLeTmz{
+    height: 15rem !important;
   }
 
   .loading-gif img {

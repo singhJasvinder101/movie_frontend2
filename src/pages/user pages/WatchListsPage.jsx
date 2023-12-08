@@ -4,6 +4,7 @@ import Card2 from '../../components/Card2';
 
 const WatchListsPage = () => {
     const [allWatchLists, setAllWatchLists] = useState([])
+    const [fetchAgain, setFetchAgain] = useState(false)
     const apiUrl = import.meta.env.VITE_API_URI;
 
     useEffect(() => {
@@ -13,6 +14,7 @@ const WatchListsPage = () => {
                     withCredentials: true
                 })
                 if (data.success) {
+                    console.log(data.watchLists)
                     setAllWatchLists(data.watchLists)
                 }
             } catch (error) {
@@ -20,7 +22,7 @@ const WatchListsPage = () => {
             }
         };
         fetchData()
-    }, [])
+    }, [fetchAgain])
 
     return (
         <div>
@@ -29,7 +31,7 @@ const WatchListsPage = () => {
                     {allWatchLists.map((res, index) => (
                         <>
                             {res.imageUrl && <div className='mx-3 my-3' key={`movies-card-${index}`}>
-                                <Card2 showCross={true} className='card-slider-item' title={res.name} imgUrl={res.imageUrl} />
+                                <Card2 fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} showCross={true} className='card-slider-item' title={res.name} imgUrl={res.imageUrl} />
                             </div>}
                         </>
                     ))}

@@ -22,11 +22,22 @@ const CorouselComponent = ({ trendingSeries }) => {
                 //         callback: 'jsonpCallback',
                 //     },
                 // });
-                const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
+                // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
+                const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=e7db26be`);
+                // const data = response.data;
+                // if (data.results[0] && title) {
+                //     return data.results[0].id;
+                // }
                 const data = response.data;
-                // console.log(data)
-                if (data.results[0] && title) {
-                    return data.results[0].id;
+                if (data.Search[0] && title) {
+                    const sortedItems = data.Search.sort((a, b) => {
+                        if(!isNaN(a.Year) && !isNaN(b.Year)){
+                            return b.Year - a.Year
+                        } 
+                        return 0
+                    });
+                    console.log(sortedItems)
+                    return sortedItems[0].imdbID
                 }
             } catch (error) {
                 console.error(error);
@@ -45,7 +56,7 @@ const CorouselComponent = ({ trendingSeries }) => {
                 });
                 const fetchedImdbData = await Promise.all(imdbDataPromises);
                 const filteredImdbData = fetchedImdbData.filter((data) => data !== null);
-                setImdbData(filteredImdbData);                
+                setImdbData(filteredImdbData);
             } catch (error) {
                 console.log(error);
             }

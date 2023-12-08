@@ -7,6 +7,9 @@ import { gettingMoviesOfGenres, gettingSeriesOfGenre } from '../utils/fetchMovie
 import Card2 from './Card2';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader1Component from './Loader1Component';
+import { ChakraProvider, Skeleton } from '@chakra-ui/react';
+import styled from 'styled-components';
+import { animated } from 'react-spring';
 
 const tmdbApiKey = import.meta.env.tmdbApiKey
 
@@ -24,6 +27,22 @@ const SeriesCardSliderComponent = ({ id, seriesId }) => {
         }).catch(err => console.log(err))
     }, [seriesId])
 
+    const CardContainer = styled(animated.div)`
+        position: relative;
+        width: 190px;
+        height: 15rem;
+        margin-right: 10px;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+
+        &:hover {
+          z-index: 12;
+        }
+    `;
+
+
 
     const settings = {
         dots: false,
@@ -39,19 +58,23 @@ const SeriesCardSliderComponent = ({ id, seriesId }) => {
     };
 
     return (
-        <>
-        {isLoading ? (
-            <Loader1Component />
-        ): (
+        <ChakraProvider>
             <Slider className='mx-3' {...settings}>
-                {seriesData && seriesData.map((res, idx) => (
-                    <div key={`series-card-${res.id}`}>
-                        <Card2 className='mx-4 card-slider-item' title={res.name} imgUrl={res.poster_path} />
-                    </div>
-                ))}
+                {isLoading ? (
+                    Array.from({ length: 4 }).map((_, idx) => (
+                        <CardContainer>
+                            <Skeleton key={idx} className='card-skeleton' height='254px' width="190px" fadeDuration={3} style={{ width: '190px', height: '254px' }} />
+                        </CardContainer>
+                    ))
+                ) : (
+                    seriesData && seriesData.map((res, idx) => (
+                        <div key={`series-card-${res.id}`}>
+                            <Card2 className='mx-4 card-slider-item' title={res.name} imgUrl={res.poster_path} />
+                        </div>
+                    ))
+                )}
             </Slider>
-        )}
-        </>
+        </ChakraProvider>
     );
 };
 

@@ -41,6 +41,7 @@ export default function MenuAppBar({ isToken }) {
     useEffect(() => {
         searchMoviesOrSeries(query)
             .then(res => {
+                console.log(res)
                 setResultsData(res)
             })
     }, [query])

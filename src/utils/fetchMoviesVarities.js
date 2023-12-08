@@ -74,9 +74,9 @@ const fetchIMDBData = async (title) => {
         // });
         const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
         const data = response.data;
-        // console.log(data)
+        console.log(data)
 
-        return data.d[0].id;
+        // return data.d[0].id;
     } catch (error) {
         console.error(error);
     }
@@ -245,10 +245,14 @@ const searchMoviesOrSeries = async (query) => {
         //         callback: 'jsonpCallback',
         //     },
         // });
-        const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(query)}`);
+        // const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=${encodeURIComponent(query)}`);
+        // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(query)}`);
+        const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=e7db26be`);
         const data = response.data;
-        console.log(data);
-        return data.results
+        if (data.Search[0] && query) {
+            const sortedItems = data.Search.sort((a, b) => b.Year - a.Year);
+            return sortedItems
+        }
     } catch (err) {
         console.log(err)
     }
@@ -273,9 +277,10 @@ async function HollyWood() {
             const pageResults = response.data.results;
             allResults = [...allResults, ...pageResults];
         }
+        console.log(allResults)
         return allResults;
     } catch (error) {
-        console.error('Error fetching movies:', error);
+        console.log('Error fetching movies:', error);
         return [];
     }
 }

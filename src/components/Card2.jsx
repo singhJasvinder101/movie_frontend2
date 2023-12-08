@@ -82,21 +82,25 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Card2 = ({ title, imgUrl, showCross = false }) => {
+const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) => {
   const [imdbId, setImdbId] = useState("")
   const [isMovie, setIsMovie] = useState(false)
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
+      // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
+      const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=e7db26be`);
       const data = response.data;
+      // console.log(data)
 
-      if (data.results[0] && title) {
-        setImdbId(data.results[0].id !== "/emmys" ? data.results[0].id : data.results[1].id);
-        setIsMovie(data.results[0].type === "movie")
+      if (data.Search[0] && title) {
+        const sortedItems = data.Search.sort((a, b) => b.Year - a.Year);
+        // console.log(sortedItems[0]); 
+        setImdbId(sortedItems[0].imdbID !== "/emmys" ? sortedItems[0].imdbID : sortedItems[1].imdbID);
+        setIsMovie(data.Search[0].Type === "movie")
       }
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
   };
 
@@ -165,6 +169,7 @@ const Card2 = ({ title, imgUrl, showCross = false }) => {
           progress: undefined,
           theme: "black",
         })
+        setFetchAgain(!fetchAgain)
       }
     } catch (error) {
       toast.error("some error occoured", {
@@ -196,6 +201,7 @@ const Card2 = ({ title, imgUrl, showCross = false }) => {
         <div className="d-flex">
           <CardButton className='mx-2' onClick={() => handleWatchList(title, imdbId, imgUrl, isMovie)} >+</CardButton>
           <CardButton>
+            {/* {!isMovie && console.log(imdbId)} */}
             <Link to={isMovie ? `/movies/${imdbId}` : `/series/${imdbId}/s/1/e/1`}>
               <BsFillPlayFill />
             </Link>

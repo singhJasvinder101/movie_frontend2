@@ -75,7 +75,7 @@ import { useSpring, animated } from 'react-spring';
 import { useEffect } from 'react';
 import { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsFillPlayFill } from 'react-icons/bs'
 import { RxCross2 } from 'react-icons/rx'
 import { ToastContainer, toast } from 'react-toastify';
@@ -85,8 +85,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) => {
   const [imdbId, setImdbId] = useState("")
   const [isMovie, setIsMovie] = useState(false)
+  const navigate = useNavigate()
 
-  const fetchData = async () => {
+  const handleOnClick = async (title) => {
     try {
       // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
       const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=e7db26be`);
@@ -96,15 +97,21 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
       if (data.Search[0] && title) {
         const sortedItems = data.Search.sort((a, b) => b.Year - a.Year);
         // console.log(sortedItems[0]); 
-        setImdbId(sortedItems[0].imdbID !== "/emmys" ? sortedItems[0].imdbID : sortedItems[1].imdbID);
-        setIsMovie(data.Search[0].Type === "movie")
+        const selectedImdbId = sortedItems[0].imdbID !== "/emmys" ? sortedItems[0].imdbID : sortedItems[1].imdbID;
+        const selectedIsMovie = data.Search[0].Type === "movie";
+
+        setImdbId(selectedImdbId);
+        setIsMovie(selectedIsMovie);
+
+        // Use the selected values directly in the navigate function
+        navigate(selectedIsMovie ? `/movies/${selectedImdbId}` : `/series/${selectedImdbId}/s/1/e/1`);
       }
+      
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
   };
 
-  fetchData();
 
   const [hovered, setHovered] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URI;
@@ -200,11 +207,11 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
         <CardTitle>{title}</CardTitle>
         <div className="d-flex">
           <CardButton className='mx-2' onClick={() => handleWatchList(title, imdbId, imgUrl, isMovie)} >+</CardButton>
-          <CardButton>
+          <CardButton onClick={() => handleOnClick(title)}>
             {/* {!isMovie && console.log(imdbId)} */}
-            <Link to={isMovie ? `/movies/${imdbId}` : `/series/${imdbId}/s/1/e/1`}>
+            {/* <Link to={isMovie ? `/movies/${imdbId}` : `/series/${imdbId}/s/1/e/1`}> */}
               <BsFillPlayFill />
-            </Link>
+            {/* </Link>  */}
           </CardButton>
         </div>
       </CardOverlay>

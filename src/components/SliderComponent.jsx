@@ -29,6 +29,7 @@ const CorouselComponent = ({ trendingSeries }) => {
                 //     return data.results[0].id;
                 // }
                 const data = response.data;
+                console.log(data)
                 if (data.Search[0] && title) {
                     const sortedItems = data.Search.sort((a, b) => {
                         if(!isNaN(a.Year) && !isNaN(b.Year)){

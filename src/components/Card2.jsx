@@ -90,7 +90,7 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
   const handleOnClick = async (title) => {
     try {
       // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
-      const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=e7db26be`);
+      const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=8e70dc5`);
       const data = response.data;
       // console.log(data)
 

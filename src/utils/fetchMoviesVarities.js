@@ -247,7 +247,7 @@ const searchMoviesOrSeries = async (query) => {
         // });
         // const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=${encodeURIComponent(query)}`);
         // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(query)}`);
-        const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=e7db26be`);
+        const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=8e70dc5`);
         const data = response.data;
         if (data.Search[0] && query) {
             const sortedItems = data.Search.sort((a, b) => b.Year - a.Year);

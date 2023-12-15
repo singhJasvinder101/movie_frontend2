@@ -80,14 +80,14 @@ const Home = () => {
       {filteredGenres
         ?.map((item, i) => (
           <div key={`movies-slider${i}`}>
-            <h4 className='mx-3 mt-5 px-2 movie-heading'>{item?.name}</h4>
+            <h4 className='mx-3 mt-3 px-2 movie-heading'>{item?.name}</h4>
             <CardSlider id={item?.id} />
           </div>
         ))}
       {filteredSeriesGenres?.length > 0 && filteredSeriesGenres
         .map((item, i) => (
           <div key={`series-slider-${i - 100}`}>
-            <h4 className='mx-3 mt-5 px-2 series-heading'>{item.name}</h4>
+            <h4 className='mx-3 mt-3 px-2 series-heading'>{item.name}</h4>
             <SeriesCardSliderComponent seriesId={item.id} />
           </div>
         ))}

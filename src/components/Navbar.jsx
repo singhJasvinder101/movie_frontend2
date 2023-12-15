@@ -15,7 +15,7 @@ import ChakraModal from './ChakraModal';
 import SideDrawerComponent from './SideDrawerComponent';
 const apiUrl = import.meta.env.VITE_API_URI;
 
-export default function MenuAppBar({ isToken }) {
+export default function MenuAppBar({ isToken, setFetchAgain }) {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [query, setQuery] = useState("")
     const [resultsData, setResultsData] = useState([])
@@ -80,6 +80,7 @@ export default function MenuAppBar({ isToken }) {
                         onClose={onClose}
                         isOpen={isOpen}
                         onOpen={onOpen}
+                        setFetchAgain={setFetchAgain}
                     >
                         <FontAwesomeIcon className='text-white mx-3' icon={faSearch} />
                     </ChakraModal>

@@ -42,7 +42,7 @@ const CorouselComponent = ({ trendingSeries }) => {
     }, [trendingSeries]);
 
     const handleClick = (id) => {
-        localStorage.setItem('imdbId', id);
+        localStorage.setItem('id', id);
     };
 
     return (

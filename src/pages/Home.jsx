@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CorouselComponent from '../components/CorouselComponent'
 import { gettingAllGenres, gettingAllSeriesGenres, gettingTrendingMovies, gettingTrendingSeries } from '../utils/fetchMoviesVarities'
 import CardSlider from '../components/CardSliderComponent'
 import SeriesCardSliderComponent from '../components/SeriesCardSliderComponent'
 import { useQuery } from '@tanstack/react-query'
 
-const Home = () => {
+const Home = ({ fetchAgain }) => {
   // const [data, setData] = useState([])
   // const [genres, setGenres] = useState([])
   // const [seriesGenres, setSeriesGenres] = useState([])
@@ -36,6 +36,10 @@ const Home = () => {
   //     setTrendingSeries(res.slice(0,4))
   //   }).catch(err => console.log(err))
   // }, [])
+
+  useEffect(() => {
+      document.title = "Movie Time 🔥"
+  }, [fetchAgain])
 
   const { data } = useQuery({
     queryKey: ['trendingMovies'],

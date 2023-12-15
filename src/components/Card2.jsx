@@ -97,7 +97,7 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
       if (data.results[0] && title) {
         setImdbId(data.results[0].id);
         setIsMovie(data.results[0].media_type === "movie");
-        localStorage.setItem("imdbId", data.results[0].id)
+        localStorage.setItem("id", data.results[0].id)
 
         // Use the selected values directly in the navigate function
         navigate(data.results[0].media_type === "movie" ? `/movies/` : `/series/s/1/e/1`);

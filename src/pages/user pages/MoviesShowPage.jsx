@@ -11,10 +11,9 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 
-const MoviesShowPageComponent = () => {
+const MoviesShowPageComponent = ({ fetchAgain }) => {
   // const { imdbId } = useParams()
-  const imdbId  = localStorage.getItem("imdbId")
-  console.log(imdbId)
+  var imdbId = localStorage.getItem("id")
   const [movieId, setMovieId] = useState("")
   const [currentMovieData, setCurrentMovieData] = useState({
     title: "",
@@ -32,6 +31,7 @@ const MoviesShowPageComponent = () => {
   const [seriesIsFound, setSeriesIsFound] = useState(false)
   const [server, setServer] = useState(1)
   const [youtubeKey, setYoutubeKey] = useState("")
+
 
   useEffect(() => {
     if (currentMovieData.title) {
@@ -57,7 +57,7 @@ const MoviesShowPageComponent = () => {
         setSeriesIsFound(true)
       }
     });
-  }, [imdbId]);
+  }, [imdbId, fetchAgain]);
 
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const MoviesShowPageComponent = () => {
 
       })
       .catch((err) => console.error(err));
-  }, [movieId]);
+  }, [imdbId, fetchAgain]);
 
   useEffect(() => {
     // Fetch cast info when seriesId changes
@@ -90,14 +90,14 @@ const MoviesShowPageComponent = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [movieId]);
+  }, [imdbId, fetchAgain]);
 
   useEffect(() => {
     fetchYoutubeKey_movie(imdbId).then((data) => {
       setYoutubeKey(data)
     })
       .catch((err) => console.log(err));
-  }, [movieId])
+  }, [imdbId, fetchAgain])
 
 
   return (

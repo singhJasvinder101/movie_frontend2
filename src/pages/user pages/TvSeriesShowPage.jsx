@@ -13,9 +13,9 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper/modules';
 
-const TvSeriesShowPage = () => {
+const TvSeriesShowPage = ({ fetchAgain }) => {
   // const { imdbId } = useParams()
-  const imdbId  = localStorage.getItem("imdbId")
+  const imdbId  = localStorage.getItem("id")
   const { season_number } = useParams()
   const { episode_number } = useParams()
   const [seriesId, setSeriesId] = useState("")
@@ -61,7 +61,7 @@ const TvSeriesShowPage = () => {
         setSeriesIsFound(true)
       }
     });
-  }, [imdbId]);
+  }, [imdbId, fetchAgain]);
 
   useEffect(() => {
     // Fetch current episode details when seriesId, season_number, or episode_number changes
@@ -104,7 +104,7 @@ const TvSeriesShowPage = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [seriesId]);
+  }, [seriesId, fetchAgain]);
 
   
   useEffect(() => {
@@ -112,7 +112,7 @@ const TvSeriesShowPage = () => {
       setYoutubeKey(data)
     })
       .catch((err) => console.log(err));
-  }, [imdbId])
+  }, [imdbId, fetchAgain])
 
 
 

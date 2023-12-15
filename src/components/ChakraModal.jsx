@@ -2,12 +2,13 @@ import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, 
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, onClose, isOpen, onOpen }) => {
+const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, onClose, isOpen, onOpen, setFetchAgain }) => {
     // const { isOpen, onOpen } = useDisclosure()
 
     const handleClick = (id) => {
-        localStorage.setItem('imdbId', id);
-    };
+        localStorage.setItem('id', id);
+        setFetchAgain(prev => !prev)
+    };  
     return (
         <div>
             <Link onClick={onOpen}>{children}</Link>
@@ -33,11 +34,11 @@ const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, on
                             <ul className='results'>
                                 {resultsData && resultsData.map((res, idx) => (
                                     res.media_type === "movie" ? (
-                                        <li onClick={() => handleClick(res.id)}>
+                                        <li key={idx} onClick={() => handleClick(res.id)}>
                                             <Link to={`/movies/`}>{res.title}</Link>
                                         </li>
                                     ) : (
-                                        <li onClick={() => handleClick(res.id)}>
+                                        <li key={idx} onClick={() => handleClick(res.id)}>
                                             <Link to={`/series/s/1/e/1`}>{res.name}</Link>
                                         </li>
                                     )

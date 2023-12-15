@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom'
 
 const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, onClose, isOpen, onOpen }) => {
     // const { isOpen, onOpen } = useDisclosure()
+
+    const handleClick = (id) => {
+        localStorage.setItem('imdbId', id);
+    };
     return (
         <div>
             <Link onClick={onOpen}>{children}</Link>
@@ -29,9 +33,13 @@ const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, on
                             <ul className='results'>
                                 {resultsData && resultsData.map((res, idx) => (
                                     res.media_type === "movie" ? (
-                                        <li><Link to={`/movies/${res.id}`}>{res.title}</Link> </li>
+                                        <li onClick={() => handleClick(res.id)}>
+                                            <Link to={`/movies/`}>{res.title}</Link>
+                                        </li>
                                     ) : (
-                                        <li><Link to={`/series/${res.id}/s/1/e/1`}>{res.name}</Link></li>
+                                        <li onClick={() => handleClick(res.id)}>
+                                            <Link to={`/series/s/1/e/1`}>{res.name}</Link>
+                                        </li>
                                     )
                                 ))}
                             </ul>

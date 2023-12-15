@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import CorouselComponent from '../components/SliderComponent'
-import Card1 from '../components/Card1'
+import React from 'react'
+import CorouselComponent from '../components/CorouselComponent'
 import { gettingAllGenres, gettingAllSeriesGenres, gettingTrendingMovies, gettingTrendingSeries } from '../utils/fetchMoviesVarities'
 import CardSlider from '../components/CardSliderComponent'
-import Card2 from '../components/Card2'
 import SeriesCardSliderComponent from '../components/SeriesCardSliderComponent'
 import { useQuery } from '@tanstack/react-query'
-
 
 const Home = () => {
   // const [data, setData] = useState([])

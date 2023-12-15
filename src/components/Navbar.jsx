@@ -20,6 +20,8 @@ export default function MenuAppBar({ isToken }) {
     const [query, setQuery] = useState("")
     const [resultsData, setResultsData] = useState([])
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [isTyping, setIsTyping] = useState(false)
+    // to do: debounce function
     const navigate = useNavigate()
 
     const handleSearchOnChange = (e) => {
@@ -51,9 +53,7 @@ export default function MenuAppBar({ isToken }) {
             <nav className="navbar">
                 <div className="left d-flex mx-0 justify-content-between align-items-center">
                     {window.innerWidth <= 1068 ? (
-                        <SideDrawerComponent>
-                            <RxHamburgerMenu className='menu-btn' />
-                        </SideDrawerComponent>
+                        <SideDrawerComponent />
                     ) : null}
                     <div className="logo">
                         <Link to="/home" style={{ textDecoration: 'none' }} >

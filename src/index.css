@@ -17,8 +17,22 @@ body {
   background-color: black !important;
 }
 
+.moviesPage,
+.tvSeriesPage {
+  font-family: 'Agbalumo';
+}
+
+.poppins {
+  font-family: 'Poppins';
+}
+
 .swiper-pagination {
   display: none;
+}
+
+.trailer-section {
+  word-wrap: break-word;
+  width: 18rem;
 }
 
 .swiper {
@@ -170,6 +184,13 @@ body {
   font-size: 2rem;
 }
 
+.close-drawer-btn {
+  font-size: 1.5rem;
+  float: right;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
 .bars {
   color: white !important;
   background-color: white;
@@ -247,13 +268,15 @@ body {
 
 
 /* home page style */
-.swiper-slide {
+#trending {
   height: 80vh;
   object-fit: cover;
   max-width: 100vw;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; 
 }
+
+
 
 .signup {
   text-decoration: none;
@@ -291,6 +314,11 @@ body {
   overflow: hidden;
   border-radius: 1rem;
   display: inline-block;
+}
+
+.container-fluid .swiper-slide{
+  height: 304px;
+  background-color: transparent;
 }
 
 .card2 {
@@ -360,19 +388,54 @@ body {
 }
 
 .cast {
-  /* width: 33%; */
   flex-grow: 1;
   margin-top: 1rem;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.cast-container {
+  width: 90%;
 }
 
 .info {
   width: 90%;
 }
 
+.cast {
+  height: 18rem;
+  background-color: transparent !important;
+}
+
 .cast-img {
+  border-radius: 50% !important;
+  object-fit: cover;
+  max-width: 50% !important;
+  max-height: 30% !important;
   width: 100%;
-  height: 35vh;
+  height: auto !important;
+}
+
+.cast-img-alt {
+  width: 50%;
+  height: 60%;
   border-radius: 50%;
+}
+
+
+.cast-name {
+  font-weight: 600;
+  color: white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cast-character {
+  font-size: 1rem;
+  color: #A3A2A6;
 }
 
 .cyan {
@@ -380,13 +443,43 @@ body {
 }
 
 iframe {
-  width: 82vw;
+  width: 65vw;
   height: 37vw;
   box-shadow: rgba(211, 211, 211, 0.322) 0px 0px 7vw 1vw;
   margin-top: 4vh;
   top: 10;
-  display: block;
-  margin: auto;
+}
+
+.video {
+  margin-left: 5rem;
+}
+
+.movie-show {
+  width: 100%;
+}
+
+
+.movie-top img {
+  position: absolute;
+  opacity: 0.2;
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: top;
+  z-index: -1121;
+}
+
+#yo-trailer {
+  max-width: 300px !important;
+  width: 250px !important;
+  height: 20rem !important;
+  border-radius: 5px !important;
+  margin-left: 0 !important;
+}
+
+.movie-trailer-section {
+  font-family: 'Poppins';
+  font-weight: bold !important;
 }
 
 .server-options {
@@ -502,6 +595,7 @@ iframe {
   height: 12rem;
   overflow-y: scroll;
 }
+
 ::-webkit-scrollbar {
   width: 0px;
 }
@@ -551,12 +645,17 @@ iframe {
 @media only screen and (max-width: 1068px) {
 
   iframe {
-    width: 100vw !important;
-    height: 50vw !important;
+    width: 65vw;
+    height: 68vh;
     /* display: none; */
     box-shadow: rgba(211, 211, 211, 0.322) 0px 0px 7vw 1vw;
-    margin-top: 0;
+    margin-top: 2rem;
+    margin-left: 1.3rem !important;
     top: 10;
+  }
+
+  #yo-trailer {
+    height: 13rem !important;
   }
 
   .cast-img {
@@ -589,17 +688,41 @@ iframe {
     height: 15rem !important;
     margin: 0.4rem !important;
   }
+
   .card-skeleton {
     width: 142px !important;
     height: 15rem !important;
   }
 
-  .kLeTmz{
+  .kLeTmz {
     height: 15rem !important;
   }
 
   .loading-gif img {
     width: 80%;
+  }
+}
+
+@media only screen and (max-width: 952px) {
+  .movie-trailer-section {
+    display: none !important;
+  }
+
+  iframe {
+    height: 77vh !important;
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .swiper-slide {
+    height: 14rem;
+  }
+
+  iframe {
+    height: 57vh !important;
+    width: 100vw;
+    margin-left: 0rem !important;
   }
 }
 

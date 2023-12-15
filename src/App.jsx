@@ -39,7 +39,7 @@ function App() {
   };
 
   useEffect(() => {
-    // disableInspect();
+    disableInspect();
   }, [])
 
   useEffect(() => {
@@ -71,8 +71,8 @@ function App() {
                 <Route path='/home' element={<Home />} />
                 <Route path='/hollywood' element={<Hollywood />} />
                 <Route path='/bollywood' element={<BollywoodMovies />} />
-                <Route path='/series/:imdbId/s/:season_number/e/:episode_number' element={<TvSeriesShowPage />} />
-                <Route path='/movies/:imdbId' element={<MoviesShowPage />} />
+                <Route path='/series/s/:season_number/e/:episode_number' element={<TvSeriesShowPage />} />
+                <Route path='/movies/' element={<MoviesShowPage />} />
                 <Route path='/watchlists' element={<WatchListsPage />} />
               </Route>
               <Route element={<ProtectedRouteComponent admin={true} />}>

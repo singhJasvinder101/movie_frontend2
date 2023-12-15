@@ -90,21 +90,17 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
   const handleOnClick = async (title) => {
     try {
       // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(title)}`);
-      const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=8e70dc5`);
+      // const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=8e70dc5`);
+      const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=98325a9d3ed3ec225e41ccc4d360c817&query=${encodeURIComponent(title)}`);
       const data = response.data;
-      // console.log(data)
 
-      if (data.Search[0] && title) {
-        const sortedItems = data.Search.sort((a, b) => b.Year - a.Year);
-        // console.log(sortedItems[0]); 
-        const selectedImdbId = sortedItems[0].imdbID !== "/emmys" ? sortedItems[0].imdbID : sortedItems[1].imdbID;
-        const selectedIsMovie = data.Search[0].Type === "movie";
-
-        setImdbId(selectedImdbId);
-        setIsMovie(selectedIsMovie);
+      if (data.results[0] && title) {
+        setImdbId(data.results[0].id);
+        setIsMovie(data.results[0].media_type === "movie");
+        localStorage.setItem("imdbId", data.results[0].id)
 
         // Use the selected values directly in the navigate function
-        navigate(selectedIsMovie ? `/movies/${selectedImdbId}` : `/series/${selectedImdbId}/s/1/e/1`);
+        navigate(data.results[0].media_type === "movie" ? `/movies/` : `/series/s/1/e/1`);
       }
       
     } catch (error) {
@@ -200,7 +196,6 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
       onMouseLeave={() => setHovered(false)}
       style={cardProps}
     >
-      {/* {console.log(imgUrl)} */}
       <CardImage src={imgUrl && `https://image.tmdb.org/t/p/w185/${imgUrl}`} alt={title} />
       <CardOverlay style={overlayProps}>
         <button onClick={() => removeWatchList(imdbId)} className='cross-icon'>{showCross ? <RxCross2 /> : null}</button>
@@ -208,10 +203,7 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
         <div className="d-flex">
           <CardButton className='mx-2' onClick={() => handleWatchList(title, imdbId, imgUrl, isMovie)} >+</CardButton>
           <CardButton onClick={() => handleOnClick(title)}>
-            {/* {!isMovie && console.log(imdbId)} */}
-            {/* <Link to={isMovie ? `/movies/${imdbId}` : `/series/${imdbId}/s/1/e/1`}> */}
               <BsFillPlayFill />
-            {/* </Link>  */}
           </CardButton>
         </div>
       </CardOverlay>

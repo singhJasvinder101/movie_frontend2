@@ -58,7 +58,7 @@ const gettingTrendingMovies = () => {
 }
 
 const gettingTrendingSeries = () => {
-    return fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=f33521953035af3fc3162fe1ac22e60c`)
+    return fetch(`https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
         .then((res) => {
             return res.json()
         }).then(data => data.results)
@@ -82,9 +82,41 @@ const fetchIMDBData = async (title) => {
     }
 };
 
-const fetchMoviesSeries_Results = async (imdbId) => {
+export const fetchYoutubeKey_movie = async (id) => {
     try {
-        return fetch(`https://api.themoviedb.org/3/find/${imdbId}?api_key=${apiKey}&language=en-US&external_source=imdb_id`)
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
+        const data = response.data
+        return data.results[0].key        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const fetchYoutubeKey_series = async (id) => {
+    try {
+        const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
+        const data = response.data
+        return data.results[0].key        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const fetchMoviesSeries_Results = async (tmdbId) => {
+    try {
+        return fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=en-US&external_source=tmdb_id`)
+            .then((res) => {
+                return res.json()
+            }).then(data => data)
+            .catch(err => console.log(err))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const fetchTvSeries_Results = async (tmdbId) => {
+    try {
+        return fetch(`https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=en-US&external_source=tmdb_id`)
             .then((res) => {
                 return res.json()
             }).then(data => data)
@@ -247,12 +279,10 @@ const searchMoviesOrSeries = async (query) => {
         // });
         // const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=${encodeURIComponent(query)}`);
         // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(query)}`);
-        const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=8e70dc5`);
+        // const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=8e70dc5`);
+        const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=98325a9d3ed3ec225e41ccc4d360c817&query=${encodeURIComponent(query)}`);
         const data = response.data;
-        if (data.Search[0] && query) {
-            const sortedItems = data.Search.sort((a, b) => b.Year - a.Year);
-            return sortedItems
-        }
+        return data.results
     } catch (err) {
         console.log(err)
     }
@@ -335,5 +365,6 @@ export {
     getGenreNames,
     searchMoviesOrSeries,
     HollyWood,
-    Bollywood
+    Bollywood,
+    fetchTvSeries_Results
 } 

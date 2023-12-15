@@ -1,45 +1,52 @@
-import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
+import { RxHamburgerMenu } from 'react-icons/rx'
 import { Link } from 'react-router-dom'
+// import component 👇
+import Drawer from 'react-modern-drawer'
 
-const SideDrawerComponent = ({children}) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+//import styles 👇
+import 'react-modern-drawer/dist/index.css'
+import { IoClose } from "react-icons/io5";
+
+const SideDrawerComponent = () => {
     const btnRef = React.useRef()
+    const [isOpen, setIsOpen] = React.useState(false)
+    const toggleDrawer = () => {
+        setIsOpen((prevState) => !prevState)
+    }
+
     return (
-        <div>
+        <>
             {/* ${showMobileMenu ? 'show-mobile-menu justify-content-between align-items-center' : '' */}
-            <span ref={btnRef} colorScheme='teal' onClick={onOpen}>
-                {children}
-            </span>
+            <button onClick={toggleDrawer}>
+                <RxHamburgerMenu className='menu-btn' />
+            </button>
             <Drawer
-                isOpen={isOpen}
-                placement='left'
-                onClose={onClose}
-                finalFocusRef={btnRef}
+                open={isOpen}
+                onClose={toggleDrawer}
+                direction='left'
+                className='bg-dark text-light'
             >
-                <DrawerOverlay />
-                <DrawerContent className='bg-dark text-light'>
-                    <DrawerCloseButton />
-
-                    <DrawerBody className='bg-dark'>
-                        <ul className={`mobile-links`}>
-                            <li><Link to="/home">Home</Link></li>
-                            <li>
-                                <Link to="/hollywood">Hollywood</Link>
-                            </li>
-                            <li><Link to="/bollywood">Bollywood</Link></li>
-                            <li>
-                                <Link to="/watchlists">Watchlists</Link>
-                            </li>
-                        </ul>
-                    </DrawerBody>
-
-                    <DrawerFooter className='d-flex justify-content-center'>
-                        Enjoy Movies 😄
-                    </DrawerFooter>
-                </DrawerContent>
+                <button className='close-drawer-btn'>
+                    <IoClose onClick={toggleDrawer} />
+                </button>
+                <div className="bg-dark text-light">
+                    <ul className={`mobile-links`}>
+                        <li><Link to="/home">Home</Link></li>
+                        <li>
+                            <Link to="/hollywood">Hollywood</Link>
+                        </li>
+                        <li><Link to="/bollywood">Bollywood</Link></li>
+                        <li>
+                            <Link to="/watchlists">Watchlists</Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className="footer text-center mt-5 pt-3">
+                    Enjoy Movies 😄
+                </div>
             </Drawer>
-        </div>
+        </>
     )
 }
 

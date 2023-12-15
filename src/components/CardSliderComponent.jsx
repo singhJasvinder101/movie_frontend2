@@ -12,41 +12,33 @@ import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
 
 const tmdbApiKey = import.meta.env.tmdbApiKey
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+import { Pagination } from 'swiper/modules';
 
 const CardSlider = ({ id, seriesId }) => {
-    // const [data, setData] = useState([])
-    // const [isLoading, setIsLoading] = useState(true)
-
-    // useEffect(() => {
-    //     gettingMoviesOfGenres(id).then(data => {
-    //         //   console.log(data.results)
-    //         setData(data.results && data.results)
-    //         setIsLoading(false)
-    //     }).catch(err => console.log(err))
-    // }, [id])
-    // }
     const { data, isLoading } = useQuery({
         queryKey: ["movie_genres", id],
         queryFn: () => gettingMoviesOfGenres(id),
         staleTime: 1000 * 60 * 300 // 5 hrs
     })
 
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        centerMode: false,
+        // slidesToShow: data.length >= 6 ? 4 : data.length,
+        slidesToScroll: 2,
+        centerPadding: "10px",
+        slidesToShow: 1,
+        variableWidth: true,
+        arrows: window.innerWidth <= 640 ? false : true,
+    };
 
-
-const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    centerMode: false,
-    // slidesToShow: data.length >= 6 ? 4 : data.length,
-    slidesToScroll: 2,
-    centerPadding: "10px",
-    slidesToShow: 1,
-    variableWidth: true,
-    arrows: window.innerWidth <= 640 ? false : true,
-};
-
-const CardContainer = styled(animated.div)`
+    const CardContainer = styled(animated.div)`
         position: relative;
         width: 190px;
         height: 15rem;
@@ -62,27 +54,51 @@ const CardContainer = styled(animated.div)`
     `;
 
 
-return (
-    <ChakraProvider>
-        <Slider className='mx-3' {...settings}>
-            {isLoading ? (
-                Array.from({ length: 4 }).map((_, idx) => (
-                    <CardContainer>
-                        <Skeleton key={idx} className='card-skeleton' height='254px' width="190px" fadeDuration={3} style={{ width: '190px', height: '254px' }} />
-                    </CardContainer>
-                ))
-            ) : (
-                data && data?.results?.map((res, index) => (
-                    <>
-                        <div key={`movies-card-${index}`}>
-                            <Card2 className='mx-4 card-slider-item' title={res.title} imgUrl={res.poster_path} />
-                        </div>
-                    </>
-                )
-                ))}
-        </Slider>
-    </ChakraProvider>
-);
+    return (
+        <ChakraProvider>
+            <Swiper
+                slidesPerView={2}
+                spaceBetween={0}
+                pagination={{
+                    clickable: true,
+                }}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 4,
+                        spaceBetween: 0,
+                    },
+                    768: {
+                        slidesPerView: 6,
+                        spaceBetween: 0,
+                    },
+                    1024: {
+                        slidesPerView: 7,
+                        spaceBetween: 0,
+                    },
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+            >
+                {isLoading ? (
+                    Array.from({ length: 4 }).map((_, idx) => (
+                        <SwiperSlide>
+                            <CardContainer  >
+                                <Skeleton key={idx} className='card-skeleton' height='254px' width="190px" fadeDuration={3} style={{ width: '190px', height: '254px' }} />
+                            </CardContainer>
+                        </SwiperSlide>
+                    ))
+                ) : (
+                    data && data?.results?.map((res, index) => (
+                        <>
+                            <SwiperSlide key={`movies-card-${index}`}>
+                                <Card2 className='mx-4 card-slider-item' title={res.title} imgUrl={res.poster_path} />
+                            </SwiperSlide>
+                        </>
+                    )
+                    ))}
+            </Swiper>
+        </ChakraProvider>
+    );
 }
 
 export default CardSlider;

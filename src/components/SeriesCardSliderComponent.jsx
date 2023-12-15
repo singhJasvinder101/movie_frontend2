@@ -12,6 +12,11 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 const tmdbApiKey = import.meta.env.tmdbApiKey
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+import { Pagination } from 'swiper/modules';
 
 const SeriesCardSliderComponent = ({ id, seriesId }) => {
     const [data, setData] = useState([])
@@ -59,21 +64,45 @@ const SeriesCardSliderComponent = ({ id, seriesId }) => {
 
     return (
         <ChakraProvider>
-            <Slider className='mx-3' {...settings}>
+            <Swiper
+                slidesPerView={2}
+                spaceBetween={0}
+                pagination={{
+                    clickable: true,
+                }}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 4,
+                        spaceBetween: 3,
+                    },
+                    768: {
+                        slidesPerView: 5,
+                        spaceBetween: 3,
+                    },
+                    1024: {
+                        slidesPerView: 7,
+                        spaceBetween: 10,
+                    },
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+            >
                 {isLoading ? (
                     Array.from({ length: 4 }).map((_, idx) => (
-                        <CardContainer>
-                            <Skeleton key={idx} className='card-skeleton' height='254px' width="190px" fadeDuration={3} style={{ width: '190px', height: '254px' }} />
-                        </CardContainer>
+                        <SwiperSlide>
+                            <CardContainer>
+                                <Skeleton key={idx} className='card-skeleton' height='254px' width="190px" fadeDuration={3} style={{ width: '190px', height: '254px' }} />
+                            </CardContainer>
+                        </SwiperSlide>
                     ))
                 ) : (
                     seriesData && seriesData.map((res, idx) => (
-                        <div key={`series-card-${res.id}`}>
+                        <SwiperSlide key={`series-card-${res.id}`}>
                             <Card2 className='mx-4 card-slider-item' title={res.name} imgUrl={res.poster_path} />
-                        </div>
+                        </SwiperSlide>
                     ))
                 )}
-            </Slider>
+            </Swiper>
         </ChakraProvider>
     );
 };

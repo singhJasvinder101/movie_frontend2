@@ -7,7 +7,6 @@ const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, on
     return (
         <div>
             <Link onClick={onOpen}>{children}</Link>
-
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent>
@@ -29,10 +28,10 @@ const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, on
                             {/* {console.log(resultsData)} */}
                             <ul className='results'>
                                 {resultsData && resultsData.map((res, idx) => (
-                                    res.Type === "movie" ? (
-                                        <li><Link to={`/movies/${res.imdbID}`}>{res.Title}</Link> </li>
+                                    res.media_type === "movie" ? (
+                                        <li><Link to={`/movies/${res.id}`}>{res.title}</Link> </li>
                                     ) : (
-                                        <li><Link to={`/series/${res.imdbID}/s/1/e/1`}>{res.Title}</Link></li>
+                                        <li><Link to={`/series/${res.id}/s/1/e/1`}>{res.name}</Link></li>
                                     )
                                 ))}
                             </ul>

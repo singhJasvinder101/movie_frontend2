@@ -22,7 +22,7 @@ const NormalCardSliderComponent = ({ season, imdbId }) => {
         <>
             <Slider className='mx-3' {...settings}>
                 {season.episodes.map((episode, index) => (
-                    <Link key={`episode-${index}`} to={`/series/${imdbId}/s/${season.seasonNumber}/e/${episode.episodeNumber}`}>
+                    <Link key={`episode-${index}`} to={`/series/s/${season.seasonNumber}/e/${episode.episodeNumber}`}>
                         <Card1 captionData={episode} imageUrl={episode.imageUrl}/>
                     </Link>
                 ))}

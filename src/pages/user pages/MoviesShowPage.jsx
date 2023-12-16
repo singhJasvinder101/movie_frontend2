@@ -80,16 +80,14 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
 
   useEffect(() => {
     // Fetch cast info when seriesId changes
-    if (movieId) {
-      gettingMovieCastInfo(movieId)
-        .then((data) => {
-          setCurrentMovieData((prevData) => ({
-            ...prevData,
-            castInfo: data,
-          }));
-        })
-        .catch((err) => console.log(err));
-    }
+    gettingMovieCastInfo(imdbId)
+      .then((data) => {
+        setCurrentMovieData((prevData) => ({
+          ...prevData,
+          castInfo: data,
+        }));
+      })
+      .catch((err) => console.log(err));
   }, [imdbId, fetchAgain]);
 
   useEffect(() => {
@@ -108,7 +106,12 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
           <iframe
             id="iframe"
             className='video'
-            src={server === 1 ? `https://embed.smashystream.com/playere.php?imdb=${currentMovieData.imdbId}` : `https://vidsrc.me/embed/${currentMovieData.imdbId}`}
+            src={server === 1 ? `https://vidsrc.me/embed/${currentMovieData.imdbId}`
+              : server === 2 ? `https://embed.smashystream.com/playere.php?imdb=${currentMovieData.imdbId}`
+              : server === 3 ? `https://multiembed.mov/?video_id=${currentMovieData.imdbId}&amp;tmdb=1`
+              : server === 4 ? `https://moviesapi.club/movie/${currentMovieData.imdbId}`
+              : `https://www.2embed.cc/embed/${currentMovieData.imdbId}`
+            }
             scrolling="no"
             frameborder="0"
             allow="fullscreen"
@@ -120,7 +123,11 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
           <div className="movie-trailer-section mx-auto">
             <iframe
               id='yo-trailer'
-              src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+              src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`} 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
             </iframe>
             <div className='trailer-section'>
               <div className="my-3">
@@ -143,6 +150,9 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
           <div className="buttons">
             <button className='btn text-light' onClick={() => setServer(1)} >Video 1</button>
             <button className='btn text-light' onClick={() => setServer(2)} >Video 2</button>
+            <button className='btn text-light' onClick={() => setServer(3)} >Video 3</button>
+            <button className='btn text-light' onClick={() => setServer(4)} >Video 4</button>
+            <button className='btn text-light' onClick={() => setServer(5)} >Video 5</button>
           </div>
         </div>
 

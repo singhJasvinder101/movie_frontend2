@@ -126,8 +126,12 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
               <iframe
                 id="iframe"
                 className='mx-auto'
-                // https://vidsrc.me/embed/tt13623148/1-1/
-                src={server === 1 ? `https://embed.smashystream.com/playere.php?tmdb=${imdbId}&season=${season_number}&episode=${encodeURIComponent(episode_number)}` : `https://vidsrc.me/embed/${imdbId}/${season_number}-${episode_number}/`}
+                src={server === 1 ? `https://vidsrc.me/embed/tv?tmdb=${imdbId}&amp;season=${season_number}&amp;episode=${episode_number}` 
+                  : server === 2 ? `https://embed.smashystream.com/playere.php?tmdb=${imdbId}&season=${season_number}&episode=${encodeURIComponent(episode_number)}`
+                  : server === 3 ? `https://multiembed.mov/?video_id=${imdbId}&amp;tmdb=1&amp;s=${season_number}&amp;e=${episode_number}`
+                  : server === 4 ? `https://moviesapi.club/tv/${imdbId}-${season_number}-${episode_number}`
+                  : `https://www.2embed.cc/embedtv/${imdbId}&amp;s=${season_number}&amp;e=${episode_number}`
+                }
                 scrolling="no"
                 frameborder="0"
                 allow="fullscreen"
@@ -161,6 +165,9 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
               <div className="buttons">
                 <button className='btn text-light' onClick={() => setServer(1)} >Video 1</button>
                 <button className='btn text-light' onClick={() => setServer(2)} >Video 2</button>
+                <button className='btn text-light' onClick={() => setServer(3)} >Video 3</button>
+                <button className='btn text-light' onClick={() => setServer(4)} >Video 4</button>
+                <button className='btn text-light' onClick={() => setServer(5)} >Video 5</button>
               </div>
             </div>
           </div>

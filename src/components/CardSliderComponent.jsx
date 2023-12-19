@@ -57,7 +57,7 @@ const CardSlider = ({ id, seriesId }) => {
     return (
         <ChakraProvider>
             <Swiper
-                slidesPerView={2}
+                slidesPerView={2.5}
                 spaceBetween={0}
                 pagination={{
                     clickable: true,
@@ -91,7 +91,7 @@ const CardSlider = ({ id, seriesId }) => {
                     data && data?.results?.map((res, index) => (
                         <>
                             <SwiperSlide key={`movies-card-${index}`}>
-                                <Card2 className='mx-4 card-slider-item' title={res.title} imgUrl={res.poster_path} />
+                                <Card2 className='mx-4 card-slider-item' title={res.title} imgUrl={res.poster_path} isMovie={res.title ? true : false} imdbId={res.id} />
                             </SwiperSlide>
                         </>
                     )

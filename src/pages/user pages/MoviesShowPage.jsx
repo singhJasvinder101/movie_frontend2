@@ -35,7 +35,7 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
 
   useEffect(() => {
     if (currentMovieData.title) {
-      document.title = `${currentMovieData.title} | ${currentMovieData.genres}`;
+      document.title = `${currentMovieData.title} | ${currentMovieData.genres.map((g, i) => g.name) }`;
     }
   }, [currentMovieData.title, currentMovieData.genres]);
 
@@ -114,10 +114,9 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
             }
             scrolling="no"
             frameborder="0"
-            allow="fullscreen"
             webkitallowfullscreen="true"
             mozallowfullscreen="true"
-            allowFullScreen
+            allowfullscreen="true"
             referrerPolicy='origin'>
           </iframe>
           <div className="movie-trailer-section mx-auto">
@@ -127,7 +126,8 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
               title="YouTube video player" 
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              allowfullscreen>
+              allowfullscreen="allowfullscreen"
+              >
             </iframe>
             <div className='trailer-section'>
               <div className="my-3">
@@ -200,7 +200,7 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
           modules={[Pagination]}
           className="mySwiper"
         >
-          {currentMovieData.castInfo && currentMovieData.castInfo.slice(0, 6).map((cast, id) => (
+          {currentMovieData.castInfo && currentMovieData.castInfo.map((cast, id) => (
             <>
               <SwiperSlide key={id} className='cast'>
                 <div className="info">
@@ -208,7 +208,7 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
                     {cast.profile_path ? (
                       <img className='cast-img' src={`https://image.tmdb.org/t/p/w185/${cast.profile_path}`} alt="" />
                     ) : (
-                      <img className='cast-img-alt' src="https://www.shutterstock.com/image-vector/person-gray-photo-placeholder-man-260nw-1409665172.jpg" alt="" />
+                        <img className='cast-img-alt' src="https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="" />
                     )}
                   </div>
                   <div className="cast-details my-3">

@@ -31,7 +31,7 @@ const WatchListsPage = () => {
                     {allWatchLists.map((res, index) => (
                         <>
                             {res.imageUrl && <div className='mx-3 my-3' key={`movies-card-${index}`}>
-                                <Card2 fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} showCross={true} className='card-slider-item' title={res.name} imgUrl={res.imageUrl} />
+                                <Card2 fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} showCross={true} className='card-slider-item' title={res.name} imgUrl={res.imageUrl} imdbId={res.movieId || res.seriesId} />
                             </div>}
                         </>
                     ))}

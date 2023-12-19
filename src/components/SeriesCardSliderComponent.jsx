@@ -98,7 +98,7 @@ const SeriesCardSliderComponent = ({ id, seriesId }) => {
                 ) : (
                     seriesData && seriesData.map((res, idx) => (
                         <SwiperSlide key={`series-card-${res.id}`}>
-                            <Card2 className='mx-4 card-slider-item' title={res.name} imgUrl={res.poster_path} />
+                            <Card2 className='mx-4 card-slider-item' title={res.name} imgUrl={res.poster_path} isMovie={res.title ? true : false} imdbId={res.id} />
                         </SwiperSlide>
                     ))
                 )}

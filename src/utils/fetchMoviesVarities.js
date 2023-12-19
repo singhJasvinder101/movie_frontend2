@@ -86,7 +86,7 @@ export const fetchYoutubeKey_movie = async (id) => {
     try {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
         const data = response.data
-        return data.results[0].key        
+        return data.results[0].key
     } catch (error) {
         console.log(error)
     }
@@ -96,7 +96,7 @@ export const fetchYoutubeKey_series = async (id) => {
     try {
         const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
         const data = response.data
-        return data.results[0].key        
+        return data.results[0].key
     } catch (error) {
         console.log(error)
     }
@@ -287,60 +287,51 @@ const searchMoviesOrSeries = async (query) => {
         console.log(err)
     }
 }
-async function HollyWood() {
+async function HollyWood({ pageParam }) {
     const genreId = 28; // Genre ID for Hollywood
-    const totalPages = 8; // Number of pages you want to fetch
+    const totalPages = 8;
     let allResults = [];
+    // console.log(pageParam)
 
     try {
-        for (let page = 1; page <= totalPages; page++) {
-            const response = await axios.get(
-                `https://api.themoviedb.org/3/discover/movie`,
-                {
-                    params: {
-                        api_key: apiKey,
-                        with_genres: genreId,
-                        page: page, // Specify the page number
-                    },
-                }
-            );
-            const pageResults = response.data.results;
-            allResults = [...allResults, ...pageResults];
-        }
-        console.log(allResults)
-        return allResults;
+        const response = await axios.get(
+            `https://api.themoviedb.org/3/discover/movie`,
+            {
+                params: {
+                    api_key: apiKey,
+                    with_genres: genreId,
+                    page: pageParam,
+                },
+            }
+        );
+        return response.data.results;
     } catch (error) {
         console.log('Error fetching movies:', error);
         return [];
     }
 }
-async function Bollywood() {
+async function Bollywood({ pageParam }) {
     const genreId = 10402;
     const totalPages = 8;
     let allResults = [];
 
     try {
-        for (let page = 1; page <= totalPages; page++) {
-            const response = await axios.get(
-                `https://api.themoviedb.org/3/discover/movie`,
-                {
-                    params: {
-                        api_key: apiKey,
-                        page: page,
-                        language: 'en-US', 
-                        region: 'IN', 
-                        sort_by: 'release_date.desc',
-                        with_original_language: 'hi',
-                    },
-                }
-            );
-            const pageResults = response.data.results;
-            allResults = [...allResults, ...pageResults];
-        }
-        console.log(allResults)
-        return allResults;
+        const response = await axios.get(
+            `https://api.themoviedb.org/3/discover/movie`,
+            {
+                params: {
+                    api_key: apiKey,
+                    page: pageParam,
+                    language: 'en-US',
+                    region: 'IN',
+                    with_original_language: 'hi',
+                },
+            }
+        );
+        // console.log(response.data.results)
+        return response.data.results;
     } catch (error) {
-        console.error('Error fetching movies:', error);
+        console.log('Error fetching movies:', error);
         return [];
     }
 }

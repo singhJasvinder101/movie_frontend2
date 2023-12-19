@@ -134,15 +134,19 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
                 }
                 scrolling="no"
                 frameborder="0"
-                allow="fullscreen"
                 webkitallowfullscreen="true"
                 mozallowfullscreen="true"
-                allowFullScreen >
+                allowfullscreen="true"
+                referrerPolicy='origin'>
               </iframe>
               <div className="movie-trailer-section mx-auto">
                 <iframe
                   id='yo-trailer'
-                  src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+                  src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`} 
+                  title="YouTube video player" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen="allowfullscreen">
                 </iframe>
                 <div className='trailer-section'>
                   <h4 className="my-3">
@@ -213,7 +217,7 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {currentEpisodeData.castInfo && currentEpisodeData.castInfo.slice(0, 6).map((cast, id) => (
+              {currentEpisodeData.castInfo && currentEpisodeData.castInfo.map((cast, id) => (
                 <>
                   <SwiperSlide key={id} className='cast'>
                     <div className="info">

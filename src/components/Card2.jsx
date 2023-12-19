@@ -82,9 +82,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) => {
-  const [imdbId, setImdbId] = useState("")
-  const [isMovie, setIsMovie] = useState(false)
+const Card2 = ({ title, imgUrl, isMovie, showCross = false, imdbId, innerRef, setFetchAgain, fetchAgain }) => {
+
   const navigate = useNavigate()
 
   const handleOnClick = async (title) => {
@@ -95,14 +94,13 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
       const data = response.data;
 
       if (data.results[0] && title) {
-        setImdbId(data.results[0].id);
-        setIsMovie(data.results[0].media_type === "movie");
+        isMovie = data.results[0].media_type === "movie" ? true : false
         localStorage.setItem("id", data.results[0].id)
 
         // Use the selected values directly in the navigate function
         navigate(data.results[0].media_type === "movie" ? `/movies/` : `/series/s/1/e/1`);
       }
-      
+
     } catch (error) {
       console.log(error);
     }
@@ -143,16 +141,29 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
         })
       }
     } catch (error) {
-      toast.error("some error occoured", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "black",
-      })
+      if (error === "please login") {
+        toast.warning("login to add watchlist", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "black",
+        })
+      } else {
+        toast.error("some error occoured", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "black",
+        })
+      }
     }
   }
 
@@ -195,6 +206,7 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={cardProps}
+      ref={innerRef}
     >
       <CardImage src={imgUrl && `https://image.tmdb.org/t/p/w185/${imgUrl}`} alt={title} />
       <CardOverlay style={overlayProps}>
@@ -203,7 +215,7 @@ const Card2 = ({ title, imgUrl, showCross = false, setFetchAgain, fetchAgain }) 
         <div className="d-flex">
           <CardButton className='mx-2' onClick={() => handleWatchList(title, imdbId, imgUrl, isMovie)} >+</CardButton>
           <CardButton onClick={() => handleOnClick(title)}>
-              <BsFillPlayFill />
+            <BsFillPlayFill />
           </CardButton>
         </div>
       </CardOverlay>

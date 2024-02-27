@@ -50,7 +50,7 @@ function App() {
     setIsloggedin(localStorage.getItem("userInfo"))
   }, [])
 
-
+ 
 
   return (
     <div className='App'>
@@ -64,16 +64,16 @@ function App() {
           <Router>
             <ScrollToTop />
             <ChakraProvider>
-                <Navbar setFetchAgain={setFetchAgain} isToken={isToken}/>
+              <Navbar setFetchAgain={setFetchAgain} isToken={isToken} />
             </ChakraProvider>
             <Routes>
               <Route exact path='/' element={isloggedin ? <Home fetchAgain={fetchAgain} /> : <MainPage />} />
-                <Route element={<ProtectedRouteComponent setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
+              <Route element={<ProtectedRouteComponent setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
                 <Route path='/home' element={<Home fetchAgain={fetchAgain} />} />
                 <Route path='/hollywood' element={<Hollywood />} />
                 <Route path='/bollywood' element={<BollywoodMovies />} />
-                  <Route path='/series/s/:season_number/e/:episode_number' element={<TvSeriesShowPage fetchAgain={fetchAgain} />} />
-                  <Route path='/movies/' element={<MoviesShowPage fetchAgain={fetchAgain} />} />
+                <Route path='/series/s/:season_number/e/:episode_number' element={<TvSeriesShowPage fetchAgain={fetchAgain} />} />
+                <Route path='/movies/' element={<MoviesShowPage fetchAgain={fetchAgain} />} />
                 <Route path='/watchlists' element={<WatchListsPage />} />
               </Route>
               <Route element={<ProtectedRouteComponent admin={true} />}>

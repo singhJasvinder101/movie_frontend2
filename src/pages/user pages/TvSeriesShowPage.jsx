@@ -15,7 +15,7 @@ import { Pagination } from 'swiper/modules';
 
 const TvSeriesShowPage = ({ fetchAgain }) => {
   // const { imdbId } = useParams()
-  const imdbId  = localStorage.getItem("id")
+  const imdbId = localStorage.getItem("id")
   const { season_number } = useParams()
   const { episode_number } = useParams()
   const [seriesId, setSeriesId] = useState("")
@@ -36,6 +36,7 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
   const [seriesIsFound, setSeriesIsFound] = useState(false)
   const [server, setServer] = useState(1)
   const [youtubeKey, setYoutubeKey] = useState("")
+  const [iframeError, setIframeError] = useState(false);
 
 
   useEffect(() => {
@@ -67,8 +68,8 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
     // Fetch current episode details when seriesId, season_number, or episode_number changes
     if (seriesId && season_number && episode_number) {
       gettingCurrentEpisodeTitleOverview(seriesId, season_number, episode_number)
-      .then((data) => {
-        if (data) {
+        .then((data) => {
+          if (data) {
             setCurrentEpisodeData((prevData) => ({
               ...prevData,
               title: data.name,
@@ -106,7 +107,7 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
     }
   }, [seriesId, fetchAgain]);
 
-  
+
   useEffect(() => {
     fetchYoutubeKey_series(imdbId).then((data) => {
       setYoutubeKey(data)
@@ -114,7 +115,18 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
       .catch((err) => console.log(err));
   }, [imdbId, fetchAgain])
 
+  const handleIframeLoad = () => {
+    const iframe = document.getElementById("iframe");
+    // console.log("hello", iframe?.contentDocument)
+    if (iframe.contentDocument === null) {
+      setIframeError(true);
+    }
 
+  };
+
+  useEffect(() => {
+    setIframeError(false);
+  }, [server])
 
   return (
     <div className='tvSeriesPage my-3'>
@@ -123,29 +135,34 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
           <div className="movie-top">
             <img src={`https://image.tmdb.org/t/p/w1280/${currentEpisodeData.img}`} alt="" />
             <div className="movie-show d-flex jusitfy-content-between">
-              <iframe
-                id="iframe"
-                className='mx-auto'
-                src={server === 1 ? `https://vidsrc.me/embed/tv?tmdb=${imdbId}&amp;season=${season_number}&amp;episode=${episode_number}` 
-                  : server === 2 ? `https://embed.smashystream.com/playere.php?tmdb=${imdbId}&season=${season_number}&episode=${encodeURIComponent(episode_number)}`
-                  : server === 3 ? `https://multiembed.mov/?video_id=${imdbId}&amp;tmdb=1&amp;s=${season_number}&amp;e=${episode_number}`
-                  : server === 4 ? `https://moviesapi.club/tv/${imdbId}-${season_number}-${episode_number}`
-                  : `https://www.2embed.cc/embedtv/${imdbId}&amp;s=${season_number}&amp;e=${episode_number}`
-                }
-                scrolling="no"
-                frameborder="0"
-                webkitallowfullscreen="true"
-                mozallowfullscreen="true"
-                allowfullscreen="true"
-                referrerPolicy='origin'>
-              </iframe>
+              {iframeError ? (
+                <h1 className='video iframe-error'>Kindly use VPN if the server is not working</h1>
+              ) : (
+                <iframe
+                  id="iframe"
+                  className='mx-auto'
+                  src={server === 1 ? `https://vidsrc.me/embed/tv?tmdb=${imdbId}&amp;season=${season_number}&amp;episode=${episode_number}`
+                    : server === 2 ? `https://embed.smashystream.com/playere.php?tmdb=${imdbId}&season=${season_number}&episode=${encodeURIComponent(episode_number)}`
+                      : server === 3 ? `https://multiembed.mov/?video_id=${imdbId}&amp;tmdb=1&amp;s=${season_number}&amp;e=${episode_number}`
+                        : server === 4 ? `https://moviesapi.club/tv/${imdbId}-${season_number}-${episode_number}`
+                          : `https://www.2embed.cc/embedtv/${imdbId}&amp;s=${season_number}&amp;e=${episode_number}`
+                  }
+                  scrolling="no"
+                  frameborder="0"
+                  webkitallowfullscreen="true"
+                  mozallowfullscreen="true"
+                  allowfullscreen="true"
+                  onLoad={handleIframeLoad}
+                  referrerPolicy='origin'>
+                </iframe>
+              )}
               <div className="movie-trailer-section mx-auto">
                 <iframe
                   id='yo-trailer'
-                  src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`} 
-                  title="YouTube video player" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen="allowfullscreen">
                 </iframe>
                 <div className='trailer-section'>
@@ -167,11 +184,11 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
 
             <div className="server-options">
               <div className="buttons">
-                <button className='btn text-light' onClick={() => setServer(1)} >Video 1</button>
-                <button className='btn text-light' onClick={() => setServer(2)} >Video 2</button>
-                <button className='btn text-light' onClick={() => setServer(3)} >Video 3</button>
-                <button className='btn text-light' onClick={() => setServer(4)} >Video 4</button>
-                <button className='btn text-light' onClick={() => setServer(5)} >Video 5</button>
+                <button className='btn text-light' onClick={() => setServer(1)} >Server 1</button>
+                <button className='btn text-light' onClick={() => setServer(2)} >Server 2</button>
+                <button className='btn text-light' onClick={() => setServer(3)} >Server 3</button>
+                <button className='btn text-light' onClick={() => setServer(4)} >Server 4</button>
+                <button className='btn text-light' onClick={() => setServer(5)} >Server 5</button>
               </div>
             </div>
           </div>

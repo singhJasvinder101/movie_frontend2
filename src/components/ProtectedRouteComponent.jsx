@@ -30,7 +30,7 @@ const ProtectedRouteComponent = ({ setIsToken }) => {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
             if (!userInfo || !token) {
-                navigate('/login');
+                navigate('/');
             } else {
                 setIsAuth(userInfo);
                 setIsToken(true)

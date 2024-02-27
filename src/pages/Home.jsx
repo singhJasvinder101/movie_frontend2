@@ -71,6 +71,8 @@ const Home = ({ fetchAgain }) => {
   const includedeSeriesGenres = ["Animation", "Mystery", "Comedy", "Sci-Fi & Fantasy"];
   const filteredSeriesGenres = seriesGenres?.filter(it => includedeSeriesGenres.includes(it.name))
 
+  // console.log(trendingSeries)
+
   return (
     <div className='container-fluid'>
       <CorouselComponent trendingSeries={trendingSeries?.slice(0, 8)} />

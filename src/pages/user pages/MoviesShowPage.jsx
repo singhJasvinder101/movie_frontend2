@@ -31,11 +31,12 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
   const [seriesIsFound, setSeriesIsFound] = useState(false)
   const [server, setServer] = useState(1)
   const [youtubeKey, setYoutubeKey] = useState("")
+  const [iframeError, setIframeError] = useState(false);
 
 
   useEffect(() => {
     if (currentMovieData.title) {
-      document.title = `${currentMovieData.title} | ${currentMovieData.genres.map((g, i) => g.name) }`;
+      document.title = `${currentMovieData.title} | ${currentMovieData.genres.map((g, i) => g.name)}`;
     }
   }, [currentMovieData.title, currentMovieData.genres]);
 
@@ -97,37 +98,56 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
       .catch((err) => console.log(err));
   }, [imdbId, fetchAgain])
 
+  const handleIframeLoad = () => {
+    const iframe = document.getElementById("iframe");
+    // console.log("hello", iframe?.contentDocument)
+    if (iframe.contentDocument === null) {
+      setIframeError(true);
+    }
+
+  };
+
+  useEffect(() => {
+    setIframeError(false);
+  }, [server])
+
 
   return (
     <div className='moviesPage'>
       <div className="movie-top">
         <img src={`https://image.tmdb.org/t/p/w1280/${currentMovieData.img}`} alt="" />
         <div className="movie-show d-flex jusitfy-content-between">
-          <iframe
-            id="iframe"
-            className='video'
-            src={server === 1 ? `https://vidsrc.me/embed/${currentMovieData.imdbId}`
-              : server === 2 ? `https://embed.smashystream.com/playere.php?imdb=${currentMovieData.imdbId}`
-              : server === 3 ? `https://multiembed.mov/?video_id=${currentMovieData.imdbId}&amp;tmdb=1`
-              : server === 4 ? `https://moviesapi.club/movie/${currentMovieData.imdbId}`
-              : `https://www.2embed.cc/embed/${currentMovieData.imdbId}`
-            }
-            scrolling="no"
-            frameborder="0"
-            webkitallowfullscreen="true"
-            mozallowfullscreen="true"
-            allowfullscreen="true"
-            referrerPolicy='origin'>
-          </iframe>
+          {iframeError ? (
+            <h1 className='video iframe-error'>Kindly use VPN if the server is not working</h1>
+          ) : (
+            <iframe
+              id="iframe"
+              className='video'
+              src={server === 1 ? `https://vidsrc.me/embed/${currentMovieData.imdbId}`
+                : server === 2 ? `https://embed.smashystream.com/playere.php?imdb=${currentMovieData.imdbId}`
+                  : server === 3 ? `https://multiembed.mov/?video_id=${currentMovieData.imdbId}&amp;tmdb=1`
+                    : server === 4 ? `https://moviesapi.club/movie/${currentMovieData.imdbId}`
+                      : `https://www.2embed.cc/embed/${currentMovieData.imdbId}`
+              }
+              scrolling="no"
+              frameborder="0"
+              webkitallowfullscreen="true"
+              mozallowfullscreen="true"
+              allowfullscreen="true"
+              sandbox="allow-scripts allow-same-origin"
+              onLoad={handleIframeLoad}
+              referrerPolicy='origin'>
+            </iframe>
+          )}
           <div className="movie-trailer-section mx-auto">
             <iframe
               id='yo-trailer'
-              src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`} 
-              title="YouTube video player" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              src={`https://www.youtube.com/embed/${youtubeKey}?si=y64AWLNG2Ve4Ujgh`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen="allowfullscreen"
-              >
+            >
             </iframe>
             <div className='trailer-section'>
               <div className="my-3">
@@ -148,11 +168,11 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
 
         <div className="server-options">
           <div className="buttons">
-            <button className='btn text-light' onClick={() => setServer(1)} >Video 1</button>
-            <button className='btn text-light' onClick={() => setServer(2)} >Video 2</button>
-            <button className='btn text-light' onClick={() => setServer(3)} >Video 3</button>
-            <button className='btn text-light' onClick={() => setServer(4)} >Video 4</button>
-            <button className='btn text-light' onClick={() => setServer(5)} >Video 5</button>
+            <button className='btn text-light' onClick={() => setServer(1)} >Server 1</button>
+            <button className='btn text-light' onClick={() => setServer(2)} >Server 2</button>
+            <button className='btn text-light' onClick={() => setServer(3)} >Server 3</button>
+            <button className='btn text-light' onClick={() => setServer(4)} >Server 4</button>
+            <button className='btn text-light' onClick={() => setServer(5)} >Server 5</button>
           </div>
         </div>
 
@@ -208,7 +228,7 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
                     {cast.profile_path ? (
                       <img className='cast-img' src={`https://image.tmdb.org/t/p/w185/${cast.profile_path}`} alt="" />
                     ) : (
-                        <img className='cast-img-alt' src="https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="" />
+                      <img className='cast-img-alt' src="https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="" />
                     )}
                   </div>
                   <div className="cast-details my-3">

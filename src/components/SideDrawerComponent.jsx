@@ -32,7 +32,7 @@ const SideDrawerComponent = () => {
                 </button>
                 <div className="bg-dark text-light">
                     <ul className={`mobile-links`}>
-                        <li><Link to="/home">Home</Link></li>
+                        <li><Link to="/">Home</Link></li>
                         <li>
                             <Link to="/hollywood">Hollywood</Link>
                         </li>

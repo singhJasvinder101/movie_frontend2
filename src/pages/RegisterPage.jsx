@@ -64,7 +64,7 @@ const RegisterPage = () => {
 
 
     return (
-        <div className='form_container my-2'>
+        <div className='form_container mainPage my-2'>
             <Form className='register-form' noValidate validated={validated} onSubmit={handleSubmit}>
                 <div className="title_container">
                     <p className="title text-light">Create an Account</p>
@@ -164,7 +164,7 @@ const RegisterPage = () => {
                         User Already Exists
                     </Alert>
                 )}
-                <button title="Sign Up" type="submit" className="sign-in_btn">
+                <button title="Sign Up" type="submit" className="button">
                     <span>Sign Up</span>
                 </button>
             </Form>

@@ -65,7 +65,7 @@ const LoginPage = () => {
 
 
     return (
-        <div className='form_container my-5'>
+        <div className='form_container mainPage my-5'>
             <Form className='login-form' noValidate validated={validated} onSubmit={handleSubmit} >
                 <div className="title_container">
                     <p className="title text-light text-center">Login to your Account</p>
@@ -115,7 +115,7 @@ const LoginPage = () => {
                         Wrong Credentials
                     </Alert>
                 )}
-                <button title="Sign In" type="submit" className="sign-in_btn">
+                <button title="Sign In" type="submit" className="button ">
                     <span>Log In</span>
                 </button>
             </Form >

@@ -1,9 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Martel+Sans:wght@600&family=Montserrat:wght@700;800&family=Noto+Sans:wght@500&family=Nunito:wght@600&family=Open+Sans:wght@500&family=Poppins:wght@400;700&family=Roboto+Condensed&family=Roboto+Slab:wght@500&family=Roboto:wght@500&family=Teko:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Belanosima&family=Dhurjati&family=Lato:ital@1&family=Martel+Sans:wght@600&family=Montserrat:wght@700;800&family=Noto+Sans:wght@500&family=Nova+Mono&family=Nunito:wght@600&family=Open+Sans:wght@500&family=Poppins:wght@400;700&family=Roboto+Condensed&family=Roboto+Slab:wght@500&family=Roboto:wght@500&family=Teko:wght@500&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
+}
+
+.button {
+  @apply py-2 w-[100%] px-12 border-0 disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition bg-red-700 text-white
+}
+
+h1 {
+  @apply text-4xl
+}
+
+h2 {
+  @apply text-3xl
+}
+
+h3 {
+  @apply text-2xl
+}
+
+h4 {
+  @apply text-xl
+}
+
+h5 {
+  @apply text-base
 }
 
 body {
@@ -455,6 +483,14 @@ iframe {
   margin-left: 5rem;
 }
 
+.iframe-error {
+  width: 65vw;
+  height: 37vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .movie-show {
   width: 100%;
 }
@@ -631,6 +667,7 @@ iframe {
 
 .login-form {
   width: 90%;
+  padding: 2rem;
 }
 
 

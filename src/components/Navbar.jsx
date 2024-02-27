@@ -43,7 +43,7 @@ export default function MenuAppBar({ isToken, setFetchAgain }) {
     useEffect(() => {
         searchMoviesOrSeries(query)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 setResultsData(res)
             })
     }, [query])
@@ -97,11 +97,11 @@ export default function MenuAppBar({ isToken, setFetchAgain }) {
                                 </span>
                             </Link>
                         </li>
-                    ) : isToken && !userInfo.isAdmin ? (<button onClick={handleLogout} className='btn btn-danger mx-1'>Logout</button>)
+                    ) : isToken && !userInfo.isAdmin ? (<button onClick={handleLogout} className='button text-base px-4 mx-1'>Logout</button>)
                         : (
                             <>
-                                <Link to="/login" className='login btn btn-danger mx-1'>Login</Link>
-                                <Link to="/register" className='signup mx-2'>Sign Up</Link>
+                                <Link to="/login" className='login button text-base px-4'>Login</Link>
+                                <Link to="/register" className='signup px-2 mr-6'>Signup</Link>
                             </>
                         )}
                 </div>

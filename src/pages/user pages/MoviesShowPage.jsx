@@ -98,18 +98,27 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
       .catch((err) => console.log(err));
   }, [imdbId, fetchAgain])
 
-  const handleIframeLoad = () => {
-    const iframe = document.getElementById("iframe");
-    // console.log("hello", iframe?.contentDocument)
-    if (iframe.contentDocument === null) {
-      setIframeError(true);
-    }
+  // const handleIframeLoad = () => {
+  //   const iframe = document.getElementById("iframe");
+  //   console.log(iframe.contentWindow)
+  //   if (!iframe || !iframe.contentWindow) {
+  //     console.log(iframe)
+  //     setIframeError(true);
+  //   }
+  //   iframe.onerror = function () {
+  //     console.log("Error loading content");
+  //   };
+  // };
 
-  };
+  // const handleIframeError = () => {
+  //   console.log("error")
+  //   setIframeError(true);
+  // };
 
-  useEffect(() => {
-    setIframeError(false);
-  }, [server])
+  // useEffect(() => {
+  //   setIframeError(false);
+  // }, [server])
+
 
 
   return (
@@ -118,7 +127,7 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
         <img src={`https://image.tmdb.org/t/p/w1280/${currentMovieData.img}`} alt="" />
         <div className="movie-show d-flex jusitfy-content-between">
           {iframeError ? (
-            <h1 className='video iframe-error'>Kindly use VPN if the server is not working</h1>
+            <h1 className='video iframe-error'>use VPN</h1>
           ) : (
             <iframe
               id="iframe"
@@ -135,7 +144,8 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
               mozallowfullscreen="true"
               allowfullscreen="true"
               sandbox="allow-scripts allow-same-origin"
-              onLoad={handleIframeLoad}
+              // onLoad={handleIframeLoad}
+              // onError={handleIframeError}
               referrerPolicy='origin'>
             </iframe>
           )}
@@ -166,6 +176,7 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
           </div>
         </div>
 
+        <h5 className='md:mx-5 lg:mx-20'><span className='text-green-600'>Recommendation: </span>Use VPN</h5>
         <div className="server-options">
           <div className="buttons">
             <button className='btn text-light' onClick={() => setServer(1)} >Server 1</button>

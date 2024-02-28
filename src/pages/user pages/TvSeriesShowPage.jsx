@@ -115,18 +115,18 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
       .catch((err) => console.log(err));
   }, [imdbId, fetchAgain])
 
-  const handleIframeLoad = () => {
-    const iframe = document.getElementById("iframe");
-    // console.log("hello", iframe?.contentDocument)
-    if (iframe.contentDocument === null) {
-      setIframeError(true);
-    }
+  // const handleIframeLoad = () => {
+  //   const iframe = document.getElementById("iframe");
+  //   // console.log("hello", iframe?.contentDocument)
+  //   if (iframe.contentDocument === null) {
+  //     setIframeError(true);
+  //   }
 
-  };
+  // };
 
-  useEffect(() => {
-    setIframeError(false);
-  }, [server])
+  // useEffect(() => {
+  //   setIframeError(false);
+  // }, [server])
 
   return (
     <div className='tvSeriesPage my-3'>
@@ -136,7 +136,7 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
             <img src={`https://image.tmdb.org/t/p/w1280/${currentEpisodeData.img}`} alt="" />
             <div className="movie-show d-flex jusitfy-content-between">
               {iframeError ? (
-                <h1 className='video iframe-error'>Kindly use VPN if the server is not working</h1>
+                <h1 className='video iframe-error'>use VPN</h1>
               ) : (
                 <iframe
                   id="iframe"
@@ -152,7 +152,7 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
                   webkitallowfullscreen="true"
                   mozallowfullscreen="true"
                   allowfullscreen="true"
-                  onLoad={handleIframeLoad}
+                  // onLoad={handleIframeLoad}
                   referrerPolicy='origin'>
                 </iframe>
               )}
@@ -181,7 +181,7 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
                 </div>
               </div>
             </div>
-
+            <h5 className='md:mx-5 lg:mx-20'><span className='text-green-600'>Recommendation: </span>Use VPN</h5>
             <div className="server-options">
               <div className="buttons">
                 <button className='btn text-light' onClick={() => setServer(1)} >Server 1</button>

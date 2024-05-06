@@ -40,7 +40,7 @@ function App() {
   };
 
   useEffect(() => {
-    disableInspect();
+    // disableInspect();
   }, [])
 
   useEffect(() => {

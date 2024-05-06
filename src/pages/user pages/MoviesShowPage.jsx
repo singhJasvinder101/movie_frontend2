@@ -140,10 +140,10 @@ const MoviesShowPageComponent = ({ fetchAgain }) => {
               }
               scrolling="no"
               frameborder="0"
-              webkitallowfullscreen="true"
-              mozallowfullscreen="true"
+              // webkitallowfullscreen="true"
+              // mozallowfullscreen="true"
               allowfullscreen="true"
-              sandbox="allow-scripts allow-same-origin"
+              // sandbox="allow-scripts allow-same-origin"
               // onLoad={handleIframeLoad}
               // onError={handleIframeError}
               referrerPolicy='origin'>

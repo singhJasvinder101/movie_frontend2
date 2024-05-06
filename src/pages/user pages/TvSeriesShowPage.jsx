@@ -149,9 +149,10 @@ const TvSeriesShowPage = ({ fetchAgain }) => {
                   }
                   scrolling="no"
                   frameborder="0"
-                  webkitallowfullscreen="true"
-                  mozallowfullscreen="true"
+                  // webkitallowfullscreen="true"
+                  // mozallowfullscreen="true"
                   allowfullscreen="true"
+                  // sandbox="allow-scripts allow-same-origin"
                   // onLoad={handleIframeLoad}
                   referrerPolicy='origin'>
                 </iframe>

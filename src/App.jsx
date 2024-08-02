@@ -67,9 +67,9 @@ function App() {
               <Navbar setFetchAgain={setFetchAgain} isToken={isToken} />
             </ChakraProvider>
             <Routes>
-              <Route exact path='/' element={isloggedin ? <Home fetchAgain={fetchAgain} /> : <MainPage />} />
+              <Route exact path='/' key={1} element={isloggedin ? <Home key={2} fetchAgain={fetchAgain} /> : <MainPage key={1} />} />
               <Route element={<ProtectedRouteComponent setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
-                <Route path='/home' element={<Home fetchAgain={fetchAgain} />} />
+                <Route path='/home' key={2} element={<Home fetchAgain={fetchAgain} />} />
                 <Route path='/hollywood' element={<Hollywood />} />
                 <Route path='/bollywood' element={<BollywoodMovies />} />
                 <Route path='/series/s/:season_number/e/:episode_number' element={<TvSeriesShowPage fetchAgain={fetchAgain} />} />

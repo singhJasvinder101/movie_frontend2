@@ -52,25 +52,13 @@ export default function MenuAppBar({ isToken, setFetchAgain }) {
         <div className={`App ${showMobileMenu ? 'mobile-menu-active' : ''}`}>
             <nav className="navbar">
                 <div className="left d-flex mx-0 justify-content-between align-items-center">
-                    {window.innerWidth <= 1068 ? (
+                    <div className="logo d-flex gap-2">
                         <SideDrawerComponent />
-                    ) : null}
-                    <div className="logo">
                         <Link to="/home" style={{ textDecoration: 'none' }} >
                             <span className="netflix">MOVIE</span>
                             <span className="prime">TIME</span>
                         </Link>
                     </div>
-                    <ul className={`nav-links`}>
-                        <li><Link to="/home">Home</Link></li>
-                        <li>
-                            <Link to="/hollywood">Hollywood</Link>
-                        </li>
-                        <li><Link to="/bollywood">Bollywood</Link></li>
-                        <li>
-                            <Link to="/watchlists">Watchlists</Link>
-                        </li>
-                    </ul>
                 </div>
                 <div className='search-icon right mx-1'>
                     <ChakraModal
@@ -100,8 +88,7 @@ export default function MenuAppBar({ isToken, setFetchAgain }) {
                     ) : isToken && !userInfo.isAdmin ? (<button onClick={handleLogout} className='button text-base px-4 mx-1'>Logout</button>)
                         : (
                             <>
-                                <Link to="/login" className='login button text-base px-4'>Login</Link>
-                                <Link to="/register" className='signup px-2 mr-6'>Signup</Link>
+                                <Link to="/register" className='login button text-base px-4'>Sign Up</Link>
                             </>
                         )}
                 </div>

@@ -88,13 +88,27 @@ body {
 
 
 /* Navbar styles */
+.App{
+  position: static !important;
+}
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
-  padding: 1rem;
-  position: relative;
+  padding: 1rem 2rem;
+  position: sticky !important; 
+  position: -webkit-sticky;
+  top: 0 !important;
+  backdrop-filter: blur(3px) saturate(200%);
+  -webkit-backdrop-filter: blur(3px) saturate(200%);
+  background-color: rgba(17, 25, 40, 0.54);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  z-index: 1000; /* Ensure it is on top of other elements */
+}
+
+#trending{
+  margin-top: 0 !important;
 }
 
 .logo {
@@ -108,11 +122,11 @@ body {
   margin: 0;
   padding: 0;
   z-index: 10;
-  font-family: 'Noto Sans';
+  font-family: 'Martel Sans';
 }
 
 .mobile-links {
-  font-family: 'Noto Sans';
+  font-family: 'Poppins';
 }
 
 .nav-links li a {
@@ -135,6 +149,7 @@ body {
 
 .mobile-links li {
   padding: 2rem;
+  font-size: 1.2rem;
 }
 
 .nav-links li {

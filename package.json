@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@hookform/resolvers": "^3.9.0",
     "@mui/icons-material": "^5.14.7",
     "@mui/material": "^5.14.7",
     "@reduxjs/toolkit": "^1.9.5",
@@ -49,7 +50,8 @@
     "redux": "^4.2.1",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.0.7",
-    "swiper": "^10.3.1"
+    "swiper": "^10.3.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

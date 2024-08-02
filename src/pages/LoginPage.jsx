@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import './LoginPage.css'
 import { Alert, Form, Image, InputGroup } from 'react-bootstrap';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux";
 import { setRedxUserState } from '../../redux/slices/loginRegisterSlice';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 const apiUrl = import.meta.env.VITE_API_URI;
 
 const userLoginApiRequest = async (email, password, donotlogout) => {
@@ -17,56 +21,54 @@ const userLoginApiRequest = async (email, password, donotlogout) => {
     return data
 }
 
+const schema = yup.object().shape({
+    email: yup.string().email('Please enter a valid email address').required('Email is required'),
+    password: yup.string()
+        .required('Password is required')
+        .min(8, 'Password must be at least 8 characters')
+        .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+        .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+        .matches(/[0-9]/, 'Password must contain at least one number')
+        .matches(/[@$!%*?&#]/, 'Password must contain at least one special character'),
+});
+
 const LoginPage = () => {
-    const dispatch = useDispatch()
-    const [validated, setValidated] = useState(false);
+    const dispatch = useDispatch();
     const [loginUserResponseState, setLoginUserResponseState] = useState({
         success: "",
         error: "",
         loading: false,
     });
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const form = e.target.elements
-        const email = form.email.value
-        const password = form.password.value
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
 
-        if (e.currentTarget.checkValidity() === true && email && password) {
-            setLoginUserResponseState({ loading: true })
-            userLoginApiRequest(email, password)
-                .then(res => {
-                    setLoginUserResponseState({
-                        success: res.success, loading: false, error: ""
-                    })
-                    // console.log(res)
-                    if (res.success) {
-                        dispatch(setRedxUserState(res.userLoggedIn))
-                        navigate('/home', { replace: true })
-                    }
-                })
-                .catch((err) => {
-                    // console.log(err)
-                    // console.log(err.response.data.message ? err.response.data.message : err.response.data)
-                    setLoginUserResponseState({
-                        error: err.response.data.message ? err.response.data.message : err.response.data
-                    })
-                })
-            setValidated(true);
+    const onSubmit = async (data) => {
+        setLoginUserResponseState({ loading: true });
+        try {
+            const res = await userLoginApiRequest(data.email, data.password);
+            setLoginUserResponseState({ success: res.success, loading: false, error: "" });
+            if (res.success) {
+                dispatch(setRedxUserState(res.userLoggedIn));
+                navigate('/home', { replace: true });
+            }
+        } catch (err) {
+            setLoginUserResponseState({
+                error: err.response.data.message ? err.response.data.message : err.response.data,
+                loading: false,
+            });
         }
-    }
-
+    };
 
     const loginByGoogle = () => {
-        window.open(`${apiUrl}/auth/google/callback`, "_self")
-    }
-
+        window.open(`${apiUrl}/auth/google/callback`, "_self");
+    };
 
     return (
         <div className='form_container mainPage my-5'>
-            <Form className='login-form' noValidate validated={validated} onSubmit={handleSubmit} >
+            <Form className='login-form' noValidate onSubmit={handleSubmit(onSubmit)} >
                 <div className="title_container">
                     <p className="title text-light text-center">Login to your Account</p>
                     <span className="subtitle">
@@ -87,8 +89,10 @@ const LoginPage = () => {
                                 name="email"
                                 type="text"
                                 className="input_field"
-                                required />
-                            <Form.Control.Feedback type="invalid">Please enter a valid email address</Form.Control.Feedback>
+                                {...register('email')}
+                                isInvalid={!!errors.email}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors.email?.message}</Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
                 </div>
@@ -105,8 +109,10 @@ const LoginPage = () => {
                                 name="password"
                                 type="password"
                                 className="input_field"
-                                required />
-                            <Form.Control.Feedback type="invalid">Please enter a valid password</Form.Control.Feedback>
+                                {...register('password')}
+                                isInvalid={!!errors.password}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors.password?.message}</Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
                 </div>
@@ -120,19 +126,9 @@ const LoginPage = () => {
                 </button>
             </Form >
             <span className='input_label text-center'>don't you have an account let's <Link to="/register">sign up</Link></span>
-            {/* <div className="separator">
-                <hr className="line" />
-                <span>Or</span>
-                <hr className="line" />
-            </div>
-            <span title="Sign In" type="submit" className="sign-in_ggl">
-                <Image className='google-img' src="https://global-uploads.webflow.com/64009fedce03bf07c4d0898b/643fe82fc68a4c4c7f061498_Google__G__Logo.svg.png" fluid />
-                <button className='google-button' onClick={loginByGoogle}>Sign In with Google</button>
-            </span> */}
             <p className="note">Terms of use & Conditions</p>
         </div >
-    )
+    );
 };
-
 
 export default LoginPage;

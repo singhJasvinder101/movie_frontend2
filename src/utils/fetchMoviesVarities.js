@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const apiKey = "f33521953035af3fc3162fe1ac22e60c"
+const apiKey = import.meta.env.VITE_API_KEY
+const apiKey1 = import.meta.env.VITE_API_KEY_1
+const apiKey2 = import.meta.env.VITE_API_KEY_2
 const gettingAllGenres = () => {
     return fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`)
         .then(response => {
@@ -42,7 +44,7 @@ const gettingSeriesOfGenre = (id) => {
 }
 
 const gettingAllMovies = () => {
-    return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=5ec279387e9aa9488ef4d00b22acc451&language=en-US&sort_by=popularity.desc&with_genres=null&primary_release_year=null&page=1`)
+    return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey1}&language=en-US&sort_by=popularity.desc&with_genres=null&primary_release_year=null&page=1`)
         .then((res) => {
             return res.json()
         }).then(data => data)
@@ -50,7 +52,7 @@ const gettingAllMovies = () => {
 }
 
 const gettingTrendingMovies = () => {
-    return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=f33521953035af3fc3162fe1ac22e60c`)
+    return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`)
         .then((res) => {
             return res.json()
         }).then(data => data.results)
@@ -58,7 +60,7 @@ const gettingTrendingMovies = () => {
 }
 
 const gettingTrendingSeries = () => {
-    return fetch(`https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
+    return fetch(`https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=${apiKey}`)
         .then((res) => {
             return res.json()
         }).then(data => data.results)
@@ -84,7 +86,7 @@ const fetchIMDBData = async (title) => {
 
 export const fetchYoutubeKey_movie = async (id) => {
     try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=${apiKey}`)
         const data = response.data
         return data.results[0].key
     } catch (error) {
@@ -94,7 +96,7 @@ export const fetchYoutubeKey_movie = async (id) => {
 
 export const fetchYoutubeKey_series = async (id) => {
     try {
-        const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US&api_key=f33521953035af3fc3162fe1ac22e60c`)
+        const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US&api_key=${apiKey}`)
         const data = response.data
         return data.results[0].key
     } catch (error) {
@@ -280,7 +282,7 @@ const searchMoviesOrSeries = async (query) => {
         // const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=98325a9d3ed3ec225e41ccc4d360c817&language=en-US&query=${encodeURIComponent(query)}`);
         // const response = await axios.get(`https://imdb-api.projects.thetuhin.com/search?query=${encodeURIComponent(query)}`);
         // const response = await axios.get(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=8e70dc5`);
-        const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=98325a9d3ed3ec225e41ccc4d360c817&query=${encodeURIComponent(query)}`);
+        const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey2}&query=${encodeURIComponent(query)}`);
         const data = response.data;
         return data.results
     } catch (err) {

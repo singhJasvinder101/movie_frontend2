@@ -50,9 +50,9 @@ export default function MenuAppBar({ isToken, setFetchAgain }) {
 
     return (
         <div className={`App ${showMobileMenu ? 'mobile-menu-active' : ''}`}>
-            <nav className="navbar">
+            <nav className="navbar md:mx-3">
                 <div className="left d-flex mx-0 justify-content-between align-items-center">
-                    <div className="logo d-flex gap-2">
+                    <div className="logo d-flex gap-1 md:gap-2">
                         <SideDrawerComponent />
                         <Link to="/home" style={{ textDecoration: 'none' }} >
                             <span className="netflix">MOVIE</span>
@@ -88,7 +88,7 @@ export default function MenuAppBar({ isToken, setFetchAgain }) {
                     ) : isToken && !userInfo.isAdmin ? (<button onClick={handleLogout} className='button text-base px-4 mx-1'>Logout</button>)
                         : (
                             <>
-                                <Link to="/register" className='login button text-base px-4'>Sign Up</Link>
+                                <Link to="/register" className=' button text-base px-4'>Sign Up</Link>
                             </>
                         )}
                 </div>

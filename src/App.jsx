@@ -67,7 +67,7 @@ function App() {
               <Navbar setFetchAgain={setFetchAgain} isToken={isToken} />
             </ChakraProvider>
             <Routes>
-              <Route exact path='/' key={1} element={isloggedin ? <Home key={2} fetchAgain={fetchAgain} /> : <MainPage key={1} />} />
+              <Route exact path='/' key={1} element={ <MainPage key={1} />} />
               <Route element={<ProtectedRouteComponent setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
                 <Route path='/home' key={2} element={<Home fetchAgain={fetchAgain} />} />
                 <Route path='/hollywood' element={<Hollywood />} />

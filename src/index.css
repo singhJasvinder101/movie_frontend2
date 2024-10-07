@@ -37,7 +37,7 @@ h5 {
 body {
   position: relative;
   height: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: system-ui, sans-serif !important;
   color: white !important;
 }
 
@@ -213,17 +213,26 @@ body {
 }
 
 .movie-heading {
-  font-family: 'Lato' !important;
+  font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+  font-weight: bold;
   font-size: 1.9rem;
+  margin: 0.5rem 0.75rem;
 }
 
 .series-heading {
-  font-family: 'Lato' !important;
+  font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+  font-weight: bold;
   font-size: 1.9rem;
 }
 
+.swiper-wrapper{
+  display: flex;
+  align-items: center;
+}
+
 .tr-h {
-  font-family: 'Lato' !important;
+  font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+  font-weight: bold;
   font-size: 2rem;
 }
 
@@ -621,18 +630,24 @@ iframe {
   left: 0;
   bottom: 0;
   height: 100%;
-  width: 40%;
+  width: 50%;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0) 100%);
   color: #fff;
   padding: 10px;
   transition: opacity 0.3s;
   padding: 3rem;
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
   padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .slide-overlay h2 {
-  font-size: 24px;
+  font-size: 50px;
   margin-top: 40%;
+  margin-bottom: 1rem;
 }
 
 .slide-overlay p {
@@ -732,16 +747,22 @@ iframe {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 10%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%) !important;
     height: 40% !important;
     visibility: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 20000;
   }
 
   .slide-overlay h2 {
     font-size: 24px;
+    margin-bottom: 0;
     margin-top: -2rem;
   }
 
   .slide-overlay p {
-    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
   }
 
   .login-form {
@@ -771,6 +792,13 @@ iframe {
 @media only screen and (max-width: 952px) {
   .movie-trailer-section {
     display: none !important;
+  }
+
+  .movie-heading {
+    font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+    font-weight: bold;
+    font-size: 1.9rem;
+    margin: 0.5rem 2rem !important;
   }
 
   iframe {
@@ -805,11 +833,14 @@ iframe {
   margin: 0 auto;
 }
 
+#EZDrawer__containerlxs6b{
+  left: -13px !important;
+}
+
 .mainPage::before {
   content: '';
   background: url('https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg') no-repeat center center/cover;
   position: absolute;
-  top: 4rem;
   left: 0px;
   width: 100%;
   height: 123%;

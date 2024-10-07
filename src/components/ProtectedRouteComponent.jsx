@@ -19,10 +19,12 @@ const checkCookieToken = async () => {
     }
 };
 
-const ProtectedRouteComponent = ({ setIsToken }) => {
+const ProtectedRouteComponent = ({ setIsToken, isToken }) => {
     const [isAuth, setIsAuth] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    console.log(isToken)
 
     useEffect(() => {
         const fetchData = async () => {

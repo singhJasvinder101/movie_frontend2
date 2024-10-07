@@ -25,7 +25,7 @@ const SideDrawerComponent = () => {
                 open={isOpen}
                 onClose={toggleDrawer}
                 direction='left'
-                className='bg-dark text-light'
+                className='bg-dark text-light w-[12rem]'
             >
                 <button className='close-drawer-btn'>
                     <IoClose onClick={toggleDrawer} />

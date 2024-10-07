@@ -71,7 +71,7 @@ const CorouselComponent = ({ trendingSeries }) => {
                             <div className="swiper-slide-content w-100 h-100">
                                 <img src={`https://image.tmdb.org/t/p/w1280/${trendingSeries[idx].backdrop_path}`} alt="" />
                                 <div className="slide-overlay ">
-                                    <h2>{item.media_type === "tv" ? item.name : item.title}</h2>
+                                    <h2 className="mx-3" >{item.media_type === "tv" ? item.name : item.title}</h2>
                                     <p className='p-1 d-flex align-items-center justify-content-center'>
                                         <span className="star mt-1 mx-2">
                                             <StarRatings
@@ -81,7 +81,7 @@ const CorouselComponent = ({ trendingSeries }) => {
                                                 starRatedColor="cyan" />
                                         </span>
                                         {trendingSeries[idx].vote_average} | {item.media_type === "tv" ? new Date(trendingSeries[idx].first_air_date).getFullYear() : new Date(trendingSeries[idx].release_date).getFullYear()}  {genre_Data[idx]?.adult ? ' | U/A 16+' : ' | U/A  8+'}</p>
-                                    <p><span className='mx-1'>|</span>
+                                    <p className="mx-3" >
                                         {genre_Data[idx] && genre_Data[idx].genres.map((genre, id) => (
                                             <>
                                                 <span key={id}>{genre.name} | </span>

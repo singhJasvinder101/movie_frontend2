@@ -50,7 +50,7 @@ function App() {
     setIsloggedin(localStorage.getItem("userInfo"))
   }, [])
 
- 
+  console.log(isToken)
 
   return (
     <div className='App'>
@@ -67,8 +67,8 @@ function App() {
               <Navbar setFetchAgain={setFetchAgain} isToken={isToken} />
             </ChakraProvider>
             <Routes>
-              <Route exact path='/' key={1} element={ <MainPage key={1} />} />
-              <Route element={<ProtectedRouteComponent setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
+                <Route exact path='/' key={1} element={isToken ? <Home fetchAgain={fetchAgain} /> : <MainPage key={1} />} />
+                <Route element={<ProtectedRouteComponent isToken={isToken} setIsToken={setIsToken} isAuthenticated={true} admin={false} />}>
                 <Route path='/home' key={2} element={<Home fetchAgain={fetchAgain} />} />
                 <Route path='/hollywood' element={<Hollywood />} />
                 <Route path='/bollywood' element={<BollywoodMovies />} />

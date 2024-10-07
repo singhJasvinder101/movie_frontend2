@@ -18,7 +18,7 @@ import 'swiper/css/pagination';
 
 import { Pagination } from 'swiper/modules';
 
-const CardSlider = ({ id, seriesId }) => {
+const CardSlider = ({ id, seriesId, trendingMovies }) => {
     const { data, isLoading } = useQuery({
         queryKey: ["movie_genres", id],
         queryFn: () => gettingMoviesOfGenres(id),
@@ -52,7 +52,7 @@ const CardSlider = ({ id, seriesId }) => {
           z-index: 12;
         }
     `;
-
+    console.log(isLoading)
 
     return (
         <ChakraProvider>
@@ -63,42 +63,61 @@ const CardSlider = ({ id, seriesId }) => {
                     clickable: true,
                 }}
                 breakpoints={{
-                    640: {
-                        slidesPerView: 4,
-                        spaceBetween: 0,
-                    },
-                    768: {
-                        slidesPerView: 6,
-                        spaceBetween: 0,
-                    },
-                    1024: {
-                        slidesPerView: 7,
-                        spaceBetween: 0,
-                    },
+                    640: { slidesPerView: 4, spaceBetween: 0 },
+                    768: { slidesPerView: 6, spaceBetween: 0 },
+                    1024: { slidesPerView: 7, spaceBetween: 0 },
                 }}
                 modules={[Pagination]}
                 className="mySwiper"
             >
-                {isLoading ? (
-                    Array.from({ length: 4 }).map((_, idx) => (
-                        <SwiperSlide>
-                            <CardContainer  >
-                                <Skeleton key={idx} className='card-skeleton' height='254px' width="190px" fadeDuration={3} style={{ width: '190px', height: '254px' }} />
-                            </CardContainer>
-                        </SwiperSlide>
-                    ))
+                {isLoading === true ? (
+                    <>
+                        {
+                            Array.from({ length: 7 }).map((_, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <CardContainer>
+                                        <Skeleton
+                                            className="card-skeleton"
+                                            height="254px"
+                                            width="190px"
+                                            fadeDuration={3}
+                                            style={{ width: '190px', height: '254px' }}
+                                        />
+                                    </CardContainer>
+                                </SwiperSlide>
+                            ))
+                        }
+                    </>
                 ) : (
-                    data && data?.results?.map((res, index) => (
-                        <>
+                    <>
+                        {trendingMovies && trendingMovies?.map((res, index) => (
                             <SwiperSlide key={`movies-card-${index}`}>
-                                <Card2 className='mx-4 card-slider-item' title={res.title} imgUrl={res.poster_path} isMovie={res.title ? true : false} imdbId={res.id} />
+                                <Card2
+                                    className="mx-4 card-slider-item"
+                                    title={res.title}
+                                    imgUrl={res.poster_path}
+                                    isMovie={!!res.title}
+                                    imdbId={res.id}
+                                />
                             </SwiperSlide>
-                        </>
-                    )
-                    ))}
+                        ))}
+                        {data?.results?.map((res, index) => (
+                            <SwiperSlide key={`movies-card-${index}`}>
+                                <Card2
+                                    className="mx-4 card-slider-item"
+                                    title={res.title}
+                                    imgUrl={res.poster_path}
+                                    isMovie={!!res.title}
+                                    imdbId={res.id}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </>
+                )}
             </Swiper>
         </ChakraProvider>
     );
+
 }
 
 export default CardSlider;

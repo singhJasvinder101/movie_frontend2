@@ -34,7 +34,7 @@ const Home = ({ fetchAgain }) => {
   const { data: trendingMovies, error: trendingMoviesError } = useQuery({
     queryKey: ['trendingMovies'],
     queryFn: gettingTrendingMovies,
-    staleTime: 1000 * 60 * 300 // 5 hrs
+    staleTime: 0 // 5 hrs
   });
 
   const { data: trendingSeries, error: trendingSeriesError } = useQuery({
@@ -79,12 +79,12 @@ const Home = ({ fetchAgain }) => {
         <div className="trending-section my-3">
           <h2 className='mx-2 px-2 my-1 tr-h'>Trending Now 🔥</h2>
           <div className="d-flex flex-wrap justify-content-center">
-            <CardSlider trendingData={trendingMovies} />
+            <CardSlider trendingMovies={trendingMovies} />
           </div>
         </div>
-        {filteredGenres?.map((item, i) => (
+        {filteredGenres && filteredGenres?.map((item, i) => (
           <div key={`movies-slider${i}`}>
-            <h4 className='mx-3 mt-1 px-2 movie-heading'>{item.name}</h4>
+            <h4 className='  px-2 movie-heading'>{item.name}</h4>
             <CardSlider id={item.id} />
           </div>
         ))}

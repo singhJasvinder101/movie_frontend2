@@ -29,7 +29,6 @@ const ChakraModal = ({ resultsData, handleSearchOnChange, setQuery, children, on
                         </div>
 
                         <div className='text-dark sample-results'>
-                            <h5 className='mx-2'>Featured Results</h5>
                             {/* {console.log(resultsData)} */}
                             <ul className='results'>
                                 {resultsData && resultsData.map((res, idx) => (

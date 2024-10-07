@@ -77,7 +77,7 @@ const Home = ({ fetchAgain }) => {
       <CorouselComponent trendingSeries={trendingSeries?.slice(0, 8)} />
       <div className='container-fluid'>
         <div className="trending-section my-3">
-          <h2 className='mx-2 px-2 my-1 tr-h'>Trending Now 🔥</h2>
+          <h2 className='mx-2 px-2 my-4 tr-h'>Trending Now 🔥</h2>
           <div className="d-flex flex-wrap justify-content-center">
             <CardSlider trendingMovies={trendingMovies} />
           </div>
@@ -90,7 +90,7 @@ const Home = ({ fetchAgain }) => {
         ))}
         {filteredSeriesGenres?.length > 0 && filteredSeriesGenres.map((item, i) => (
           <div key={`series-slider-${i}`}>
-            <h4 className='mx-3 mt-1 px-2 series-heading'>{item.name}</h4>
+            <h4 className='px-2 series-heading'>{item.name}</h4>
             <SeriesCardSliderComponent seriesId={item.id} />
           </div>
         ))}

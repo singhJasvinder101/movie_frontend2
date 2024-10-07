@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const MainPage = () => {
   return (
     <div>
-      <div className='mainPage container my-4'>
+      <div className='mainPage container'>
         <div className="mainPageContent text-center">
           <h1>Unlimited movies, TV shows and more</h1>
           <p>Watch anywhere. Cancel anytime.</p>

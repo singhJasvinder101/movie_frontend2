@@ -29,13 +29,15 @@ const CorouselComponent = ({ trendingSeries }) => {
         };
 
         const fetchAllGenreData = async () => {
-            const AllResponses = trendingSeries.map(async (item) => {
+            const AllResponses = trendingSeries?.map(async (item) => {
                 const genreData = await fetchGenresData(item.media_type, item.id);
                 return genreData;
             });
 
-            const fetchedGenreData = await Promise.all(AllResponses);
-            setGenre_Data(fetchedGenreData);
+            if(AllResponses){
+                const fetchedGenreData = await Promise.all(AllResponses);
+                setGenre_Data(fetchedGenreData);
+            }
         };
 
         fetchAllGenreData();

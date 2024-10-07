@@ -51,16 +51,18 @@ font-size: 20px;
 `;
 
 const CardButton = styled.button`
-  background: black;
-  color: grey;
+
+  color: white;
   font-size: 1.2rem;
   border: none;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 50%;
   cursor: pointer;
   font-weight: bold;
   transition: background 0.2s;
-  border: 2px solid grey;
+  border: 2px solid white;
+  height: 3rem;
+  width: 2.7rem;
   
   &:hover {
     background: white;

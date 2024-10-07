@@ -57,13 +57,14 @@ const CardSlider = ({ id, seriesId, trendingMovies }) => {
     return (
         <ChakraProvider>
             <Swiper
-                slidesPerView={2.5}
+                slidesPerView={2}
                 spaceBetween={0}
                 pagination={{
                     clickable: true,
                 }}
                 breakpoints={{
-                    640: { slidesPerView: 4, spaceBetween: 0 },
+                    400: { slidesPerView: 2.5, spaceBetween: 0 },
+                    600: { slidesPerView: 4, spaceBetween: 0 },
                     768: { slidesPerView: 6, spaceBetween: 0 },
                     1024: { slidesPerView: 7, spaceBetween: 0 },
                 }}

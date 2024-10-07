@@ -1,10 +1,8 @@
 import React from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { Link } from 'react-router-dom'
-// import component 👇
 import Drawer from 'react-modern-drawer'
 
-//import styles 👇
 import 'react-modern-drawer/dist/index.css'
 import { IoClose } from "react-icons/io5";
 

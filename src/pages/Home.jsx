@@ -79,6 +79,7 @@ const Home = ({ fetchAgain }) => {
               <loader />
           ) : (
             
+      <>
       <CorouselComponent trendingSeries={trendingSeries?.slice(0, 8)} />
       <div className='container-fluid'>
         <div className="trending-section my-3">
@@ -101,6 +102,7 @@ const Home = ({ fetchAgain }) => {
         ))}
       </div>
     
+      </>
           )
       }
     </>

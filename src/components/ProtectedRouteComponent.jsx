@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setRedxUserState } from '../../redux/slices/loginRegisterSlice';
+import Loader from './Loader';
 
 const apiUrl = import.meta.env.VITE_API_URI;
 
@@ -44,7 +45,7 @@ const ProtectedRouteComponent = ({ setIsToken, isToken }) => {
     }, [dispatch, navigate]);
 
     if (isAuth === null) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     return <Outlet />;

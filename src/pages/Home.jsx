@@ -76,7 +76,7 @@ const Home = ({ fetchAgain }) => {
     <>
       {
         !(!!trendingSeries && !!filteredGenres && !!filteredSeriesGenres) ? (
-              <loader />
+              <Loader />
           ) : (
             
       <>

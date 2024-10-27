@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import CorouselComponent from '../components/CorouselComponent';
 import { gettingAllGenres, gettingAllSeriesGenres, gettingTrendingMovies, gettingTrendingSeries } from '../utils/fetchMoviesVarities';
 import CardSlider from '../components/CardSliderComponent';
+import Loader from '../components/Loader';
 import SeriesCardSliderComponent from '../components/SeriesCardSliderComponent';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -62,9 +63,8 @@ const Home = ({ fetchAgain }) => {
   const filteredSeriesGenres = seriesGenres?.filter(it => includedSeriesGenres.includes(it.name));
 
   const renderError = (error) => (
-    <div style={{ textAlign: 'center', color: 'red' }}>
-      <span role="img" aria-label="upset face" style={{ fontSize: '48px' }}>😕 Something went wrong !!</span>
-      <h3>Please Try Again Later !</h3>
+    <div style={{ textAlign: 'center', color: 'white' }}>
+      <span role="img" aria-label="upset face" style={{ fontSize: '48px' }}>Please try using VPN</span>
     </div>
   );
 
@@ -74,6 +74,11 @@ const Home = ({ fetchAgain }) => {
 
   return (
     <>
+      {
+        !(!!trendingSeries && !!filteredGenres && !!filteredSeriesGenres) ? (
+              <loader />
+          ) : (
+            
       <CorouselComponent trendingSeries={trendingSeries?.slice(0, 8)} />
       <div className='container-fluid'>
         <div className="trending-section my-3">
@@ -95,6 +100,9 @@ const Home = ({ fetchAgain }) => {
           </div>
         ))}
       </div>
+    
+          )
+      }
     </>
   );
 };
